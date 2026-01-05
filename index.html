@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posipher Solutions | AI & Digital Engineering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        // Suppress benign internal Alpine transition cancellation errors
+        window.addEventListener('unhandledrejection', function(event) {
+            if (event.reason && event.reason.isFromCancelledTransition) {
+                event.preventDefault();
+            }
+        });
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pos-sand': '#e9e0c2',
+                        'pos-beige': '#ddb497',
+                        'pos-clay': '#cb9670',
+                        'pos-tan': '#bc8762',
+                        'pos-brown': '#a56f4d',
+                        'pos-logo-dark': '#5d3a1a', 
+                        'pos-maroon': '#7d393a',
+                        'pos-primary': '#bc8762', 
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px) scale(0.98)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Enhanced Reveal Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, opacity;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .magnetic-wrap {
+            display: inline-block;
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .tilt-card {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Fixed: Tilt card hover background logic move to CSS for reliability */
+        .tilt-card:hover {
+            background: linear-gradient(135deg, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%) !important;
+            box-shadow: 0 25px 50px -12px rgba(93, 58, 26, 0.25);
+        }
+
+        .neural-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #bc8762; border-radius: 10px; }
+        
+        .section-tag {
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #bc8762;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        h1, h2, h3, h4 { letter-spacing: -0.02em; }
+        p { line-height: 1.6; }
+
+        .faded-gradient-bg {
+            background: linear-gradient(135deg, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .faded-text-gradient {
+            background: linear-gradient(to right, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtle-gradient-bg {
+            background: linear-gradient(135deg, rgba(93, 58, 26, 0.1) 0%, rgba(188, 135, 98, 0.15) 50%, rgba(93, 58, 26, 0.1) 100%);
+        }
+
+        /* Improved Image Entrance */
+        .img-mask {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Custom Select Arrow */
+        .custom-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235d3a1a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+             Alpine.data('appState', () => ({
+                currentView: 'home',
+                mobileMenu: false,
+                chatOpen: false, 
+                formSubmitted: false,
+                formData: { name: '', email: '', phone: '', service: '', message: '' },
+                selectedCategory: null,
+                chatHistory: [],
+                categories: [
+                    {
+                        id: 1,
+                        name: "Custom Software Development",
+                        icon: "fas fa-code",
+                        shortDesc: "Tailored web platforms and enterprise-grade applications.",
+                        longDesc: "We engineer resilient, mission-critical systems that solve unique business challenges and scale seamlessly.",
+                        services: [
+                            { name: "Custom Web Platforms", details: "Tailored platforms designed around unique business workflows.", value: "Eliminates inefficiencies • Enables rapid expansion • Seamless UX" },
+                            { name: "Enterprise-Grade Applications", details: "Engineered for complex operations and sensitive data handling.", value: "Reliable at scale • Compliance-ready • Long-term stability" },
+                            { name: "Scalable Backend Systems", details: "Resilient architectures that handle growth and peak demand.", value: "No bottlenecks • Fast performance • Cost-optimized" },
+                            { name: "API-First Architectures", details: "Integration-ready systems for effortless connectivity.", value: "Better interoperability • Reduced future costs • Faster integrations" },
+                            { name: "UI/UX & Product Experience", details: "Consistent visual identity and intuitive user flows.", value: "More leads • Higher sales • Strong ROI" },
+                            { name: "Mobile App Development", details: "High-performance solutions for engagement and productivity.", value: "High stability • Strong mobile presence" }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: "Cloud‑Native Architecture & DevOps",
+                        icon: "fas fa-cloud",
+                        shortDesc: "Modern cloud environments and automated pipelines.",
+                        longDesc: "Transform your infrastructure into an agile, cloud-native ecosystem with CI/CD automation and high availability.",
+                        services: [
+                            { name: "Cloud Migration", details: "Transitioning legacy systems to modern cloud environments.", value: "Scalability • Cost-savings • Better disaster recovery" },
+                            { name: "Infrastructure as Code", details: "Automated server provisioning and management.", value: "Reliable setup • Faster scaling • Reduced manual error" },
+                            { name: "CI/CD Pipeline Automation", details: "Streamlined deployment cycles for faster delivery.", value: "Frequent updates • Higher code quality • Rapid bug fixes" },
+                            { name: "Containerization (K8s)", details: "Manage applications in isolated, scalable containers.", value: "Resource efficiency • Easier deployment • Portability" }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: "CRM & ERP Solutions",
+                        icon: "fas fa-database",
+                        shortDesc: "Unified business intelligence and operational management.",
+                        longDesc: "Integrate your sales, finance, and operations into a single source of truth for real-time visibility.",
+                        services: [
+                            { name: "CRM Implementation", details: "Tailored platforms for lead and client lifecycle tracking.", value: "Higher retention • Unified customer data • Better sales" },
+                            { name: "ERP Migration & Modernization", details: "Moving heavy legacy ERPs to modern, agile platforms.", value: "Improved visibility • Better reporting • Leaner ops" },
+                            { name: "Data Synchronization", details: "Ensuring real-time accurate data availability across all tools.", value: "Fewer errors • Real-time insight • Stronger decisions" },
+                            { name: "Custom Portals", details: "Secured client and employee self-service interfaces.", value: "Lower support costs • Enhanced engagement" }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: "Testing, Maintenance & IT Support",
+                        icon: "fas fa-check-double",
+                        shortDesc: "Quality assurance and proactive system maintenance.",
+                        longDesc: "Ensure zero failures with rigorous testing and 24/7 reactive technical assistance.",
+                        services: [
+                            { name: "QA & Performance Testing", details: "Rigorous quality, speed, and reliability auditing.", value: "Fewer failures • Stronger reliability • Better UX" },
+                            { name: "Ongoing Maintenance", details: "Continuously monitor, update, and enhance applications post launch.", value: "Less downtime • Stable performance • Lower lifecycle cost" },
+                            { name: "Security Updates", details: "Proactive upgrades and vulnerability protection.", value: "Lower cyber risk • Stronger compliance • Data safety" },
+                            { name: "Technical Support", details: "Responsive assistance to resolve issues quickly.", value: "Minimal disruption • Faster resolutions" }
+                        ]
+                    },
+                    {
+                        id: 5,
+                        name: "SaaS Product Development",
+                        icon: "fas fa-microchip",
+                        shortDesc: "Concept to MVP and scalable multi-tenant platforms.",
+                        longDesc: "Launch and scale subscription-based powerhouses with battle-tested architectures.",
+                        services: [
+                            { name: "SaaS Architecture & MVP", details: "Designing and launching scalable platforms from concept.", value: "Faster launch • Validated ideas • Reduced risk" },
+                            { name: "Subscription & Billing", details: "Secure recurring billing and monetization frameworks.", value: "Predictable revenue • Flexible pricing • Smooth billing" },
+                            { name: "Multi-Tenant Platforms", details: "Support multiple businesses securely on one platform.", value: "Lower cost-to-serve • Efficient scaling • Isolation" },
+                            { name: "GTM Readiness", details: "Onboarding, analytics, and reliability for launch.", value: "Faster adoption • Better onboarding • Higher retention" }
+                        ]
+                    }
+                ],
+                predefinedQuestions: [
+                    { q: "What is your project timeline?", a: "Typically, an MVP or initial phase takes 8-12 weeks, depending on the complexity and scope of requirements." },
+                    { q: "Do you handle Cloud Migration?", a: "Yes, we specialize in migrating legacy systems to modern cloud environments with zero operational downtime." },
+                    { q: "Can you help with UI/UX?", a: "Absolutely. We build reusable design systems and intuitive user interfaces to drive engagement and ROI." }
+                ],
+
+                init() {
+                    this.$nextTick(() => {
+                        this.initQuantumFluxField();
+                        this.initScrollReveal();
+                        this.initMagneticButtons();
+                        // initHeroPerspective removed to keep text fixed as requested
+                    });
+                },
+
+                initQuantumFluxField() {
+                    const canvas = document.getElementById('neural-canvas');
+                    if (!canvas) return;
+                    const ctx = canvas.getContext('2d');
+                    let particles = [];
+                    let mouse = { x: null, y: null };
+                    let center = { x: 0, y: 0 };
+                    let globalAngle = 0;
+
+                    // Refined Halo Particle for a premium look
+                    class HaloParticle {
+                        constructor(center) {
+                            this.init(center);
+                        }
+                        init(center) {
+                            this.center = center;
+                            // Distribute particles in multiple radial bands for depth
+                            this.baseRadius = 250 + Math.random() * 180; 
+                            this.angle = Math.random() * Math.PI * 2;
+                            this.orbitSpeed = 0.0001 + Math.random() * 0.0004;
+                            this.size = 0.6 + Math.random() * 1.8;
+                            this.opacity = 0.1 + Math.random() * 0.6;
+                            this.pulseSpeed = 0.008 + Math.random() * 0.015;
+                            this.pulseTime = Math.random() * Math.PI * 2;
+                            this.twinkleFactor = Math.random();
+                        }
+                        update(mouse, globalAngle) {
+                            this.angle += this.orbitSpeed;
+                            this.pulseTime += this.pulseSpeed;
+                            
+                            // Subtle "breathing" effect on the radius
+                            let breathing = Math.sin(this.pulseTime) * 12;
+                            let currentRadius = this.baseRadius + breathing;
+                            
+                            // Calculate base orbital position
+                            let tx = this.center.x + Math.cos(this.angle + globalAngle) * currentRadius;
+                            let ty = this.center.y + Math.sin(this.angle + globalAngle) * currentRadius;
+
+                            // "Intelligent" Cursor Response: localized distortion/magnetic push
+                            if (mouse.x !== null) {
+                                let dx = mouse.x - tx;
+                                let dy = mouse.y - ty;
+                                let dist = Math.sqrt(dx * dx + dy * dy);
+                                let maxDist = 180;
+                                if (dist < maxDist) {
+                                    let force = (maxDist - dist) / maxDist;
+                                    // Soft magnetic distortion
+                                    tx -= dx * force * 0.45;
+                                    ty -= dy * force * 0.45;
+                                }
+                            }
+
+                            this.renderX = tx;
+                            this.renderY = ty;
+                        }
+                        draw(ctx) {
+                            // Twinkling effect based on breathing
+                            let alpha = this.opacity * (0.8 + Math.sin(this.pulseTime * 2) * 0.2);
+                            
+                            ctx.beginPath();
+                            ctx.arc(this.renderX, this.renderY, this.size, 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(188, 135, 98, ${alpha})`;
+                            ctx.fill();
+                            
+                            // Glowing aura for elite particles
+                            if (this.twinkleFactor > 0.85) {
+                                ctx.shadowBlur = 12;
+                                ctx.shadowColor = 'rgba(188, 135, 98, 0.25)';
+                            } else {
+                                ctx.shadowBlur = 0;
+                            }
+                        }
+                    }
+
+                    const init = () => {
+                        center.x = canvas.width / 2;
+                        center.y = canvas.height / 2;
+                        particles = [];
+                        let count = 800; // Hundreds of particles for a dense, premium feel
+                        for (let i = 0; i < count; i++) {
+                            particles.push(new HaloParticle(center));
+                        }
+                    };
+
+                    const animate = () => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        globalAngle += 0.0008; // Very slow, calm rotation
+
+                        particles.forEach(p => {
+                            p.update(mouse, globalAngle);
+                            p.draw(ctx);
+                        });
+
+                        requestAnimationFrame(animate);
+                    };
+
+                    const resize = () => {
+                        canvas.width = window.innerWidth;
+                        canvas.height = window.innerHeight;
+                        init();
+                    };
+
+                    window.addEventListener('mousemove', (e) => {
+                        mouse.x = e.clientX;
+                        mouse.y = e.clientY;
+                    });
+                    
+                    window.addEventListener('mouseleave', () => {
+                        mouse.x = null;
+                        mouse.y = null;
+                    });
+
+                    window.addEventListener('resize', resize);
+                    
+                    resize();
+                    animate();
+                },
+
+                initScrollReveal() {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // Added stagger logic for lists/grids
+                                const staggerItems = entry.target.querySelectorAll('.stagger-item');
+                                if (staggerItems.length > 0) {
+                                    staggerItems.forEach((item, i) => {
+                                        setTimeout(() => {
+                                            item.classList.add('active');
+                                        }, i * 150);
+                                    });
+                                }
+                                entry.target.classList.add('active');
+                            }
+                        });
+                    }, { threshold: 0.15 });
+                    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+                },
+
+                initMagneticButtons() {
+                    document.querySelectorAll('.magnetic-wrap').forEach(wrap => {
+                        wrap.addEventListener('mousemove', (e) => {
+                            const rect = wrap.getBoundingClientRect();
+                            const x = (e.clientX - rect.left - rect.width / 2) * 0.45;
+                            const y = (e.clientY - rect.top - rect.height / 2) * 0.45;
+                            wrap.style.transform = `translate(${x}px, ${y}px)`;
+                        });
+                        wrap.addEventListener('mouseleave', () => {
+                            wrap.style.transform = `translate(0px, 0px)`;
+                        });
+                    });
+                },
+
+                handleTilt(e) {
+                    const el = e.currentTarget;
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const rotateX = (y - rect.height / 2) / 10;
+                    const rotateY = -(x - rect.width / 2) / 10;
+                    el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
+                },
+
+                resetTilt(e) {
+                    e.currentTarget.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                },
+
+                scrollTo(id) {
+                    this.currentView = 'home';
+                    this.$nextTick(() => {
+                        const el = document.getElementById(id);
+                        if(el) {
+                            el.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                        this.mobileMenu = false;
+                    });
+                },
+
+                openCategory(cat) {
+                    this.selectedCategory = cat;
+                    this.currentView = 'detail';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+
+                askQuestion(q) {
+                    this.chatHistory.push({ role: 'user', text: q.q });
+                    setTimeout(() => {
+                        this.chatHistory.push({ role: 'bot', text: q.a });
+                        this.$nextTick(() => {
+                            const chat = document.getElementById('chatContent');
+                            if (chat) chat.scrollTop = chat.scrollHeight;
+                        });
+                    }, 500);
+                },
+
+                submitForm() {
+                    this.formSubmitted = true;
+                    setTimeout(() => {
+                        this.formSubmitted = false;
+                        this.formData = { name: '', email: '', phone: '', service: '', message: '' };
+                    }, 4000);
+                }
+            }));
+        });
+    </script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-[#fdfcf8] text-gray-900 font-sans selection:bg-pos-primary selection:text-white overflow-x-hidden" x-data="appState">
+
+    <!-- Premium Navigation -->
+    <nav class="fixed w-full z-[100] h-20 flex items-center transition-all duration-500 glass border-b border-pos-beige/20 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center cursor-pointer group" @click="scrollTo('hero')">
+                <div class="relative w-11 h-11 overflow-hidden rounded-xl faded-gradient-bg flex items-center justify-center text-white mr-3 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-lg shadow-pos-primary/20">
+                    <span class="font-extrabold text-2xl">P</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tight text-pos-primary uppercase leading-none">Posipher</span>
+                    <span class="text-[8px] font-bold uppercase tracking-[0.4em] text-pos-clay mt-1">Solutions</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center space-x-12">
+                <button @click="scrollTo('hero')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">Home</button>
+                <button @click="scrollTo('about')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">About us</button>
+                <button @click="scrollTo('services')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">What we Offer</button>
+                <button @click="scrollTo('work')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">Our Work</button>
+                <div class="magnetic-wrap">
+                    <button @click="scrollTo('contact')" class="faded-gradient-bg text-white px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/30 hover:scale-105 active:scale-95 transition-all duration-300">
+                        Inquire Now
+                    </button>
+                </div>
+            </div>
+
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-pos-primary text-2xl active:scale-90 transition-transform">
+                <i class="fas fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav Overlay -->
+        <div x-show="mobileMenu" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-full" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 translate-y-full" class="fixed inset-0 bg-pos-primary/95 z-[200] flex items-center justify-center p-8">
+            <button @click="mobileMenu = false" class="absolute top-8 right-8 text-white text-3xl"><i class="fas fa-times"></i></button>
+            <div class="text-center space-y-10">
+                <button @click="scrollTo('hero')" class="block text-4xl font-black text-white hover:text-pos-sand transition-all">HOME</button>
+                <button @click="scrollTo('about')" class="block text-4xl font-black text-white hover:text-pos-sand transition-all">ABOUT US</button>
+                <button @click="scrollTo('services')" class="block text-4xl font-black text-white hover:text-pos-sand transition-all">WHAT WE OFFER</button>
+                <button @click="scrollTo('work')" class="block text-4xl font-black text-white hover:text-pos-sand transition-all">WORK</button>
+                <button @click="scrollTo('contact')" class="block text-4xl font-black text-white hover:text-pos-sand transition-all">CONTACT</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Engine -->
+    <main class="relative z-10">
+        
+        <!-- HOME VIEW -->
+        <div x-show="currentView === 'home'" x-cloak x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
+            <!-- Hero Section -->
+            <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-[#fdfcf8]">
+                <!-- Neural connectivity background animation -->
+                <canvas id="neural-canvas" class="neural-bg opacity-100"></canvas>
+                
+                <!-- Header Text & Integrated Buttons Container -->
+                <div class="max-w-7xl mx-auto px-4 relative z-20 text-center">
+                    <!-- Text container remains fixed/static as requested -->
+                    <div id="hero-content" class="scroll-reveal active space-y-10">
+                        <div class="section-tag bg-pos-primary/5 border border-pos-primary/10 px-6 py-2 rounded-full animate-pulse-slow inline-flex">
+                            <span class="w-2 h-2 rounded-full bg-pos-primary mr-3"></span>
+                            Next-Gen Digital Engineering
+                        </div>
+                        
+                        <div class="flex items-center justify-center select-none">
+                            <h1 class="text-6xl md:text-[10rem] font-black text-gray-900 leading-[0.85] tracking-tighter uppercase text-center w-full py-4 animate-fade-in-up drop-shadow-2xl">
+                                Impact <br> <span class="faded-text-gradient">Engineered.</span>
+                            </h1>
+                        </div>
+
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto font-medium leading-relaxed opacity-0 animate-fade-in-up [animation-delay:400ms]">
+                            Empowering enterprise growth through AI-native solutions and hyper-scalable architectures. We bridge the gap between human vision and technical reality.
+                        </p>
+
+                        <!-- Buttons Integrated into Hero itself below description -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-12 pt-10 opacity-0 animate-fade-in-up [animation-delay:600ms]">
+                            <div class="magnetic-wrap">
+                                <button @click="scrollTo('services')" class="faded-gradient-bg text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl shadow-pos-primary/40 flex items-center group transition-all duration-300 active:scale-95">
+                                    Explore What we Offer 
+                                    <i class="fas fa-arrow-right ml-4 group-hover:translate-x-2 transition-transform"></i>
+                                </button>
+                            </div>
+                            <button @click="scrollTo('work')" class="text-xs font-black uppercase tracking-widest text-pos-primary border-b-2 border-pos-primary pb-2 hover:pb-4 transition-all duration-300">
+                                See Portfolio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="py-32 bg-white overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-24 items-center">
+                    <div class="relative scroll-reveal">
+                        <!-- image wrapper with theme gradient pattern -->
+                        <div class="w-full aspect-square rounded-[5rem] faded-gradient-bg relative overflow-hidden shadow-2xl p-12 group">
+                            <div class="absolute inset-0 bg-white/5 mix-blend-overlay"></div>
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover rounded-[3rem] shadow-inner transition-transform duration-1000 group-hover:scale-110">
+                        </div>
+                        <div class="absolute -bottom-10 -right-10 bg-white p-12 rounded-[3rem] shadow-2xl border border-pos-primary/5 max-w-[320px] transition-transform duration-500 hover:-translate-y-4">
+                            <div class="text-5xl font-black text-pos-primary tracking-tighter mb-2">12+</div>
+                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Years of cross-industry engineering mastery.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-10 scroll-reveal">
+                        <div class="section-tag">About us</div>
+                        <!-- Updated title pattern -->
+                        <h3 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900">Engineering <br> <span class="faded-text-gradient uppercase">Excellence.</span></h3>
+                        <p class="text-lg text-gray-600 font-medium leading-relaxed">
+                            Posipher Solutions empowers businesses worldwide through intelligent, scalable, and Al-driven software solutions that accelerate digital transformation and measurable growth.
+                            <br><br>
+                            We specialize in custom development of mobile apps, web platforms, and enterprise software, backed by robust product strategy, cloud-native architecture, and UI/UX design. Our services span technology consulting, system integration, and IT-enabled support including testing, maintenance, and digital transformation advisory.
+                        </p>
+                        <div class="grid grid-cols-2 gap-12 pt-10">
+                            <div class="group">
+                                <h4 class="font-black text-pos-primary text-2xl uppercase tracking-tighter group-hover:translate-x-2 transition-transform duration-300">AI-Native</h4>
+                                <p class="text-xs font-bold text-gray-500 mt-2 uppercase tracking-widest">Built- intelligence for every platform.</p>
+                            </div>
+                            <div class="group">
+                                <h4 class="font-black text-pos-primary text-2xl uppercase tracking-tighter group-hover:translate-x-2 transition-transform duration-300">Scalable</h4>
+                                <p class="text-xs font-bold text-gray-500 mt-2 uppercase tracking-widest">Architectures that grow as you grow.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What we Offer Overview -->
+            <section id="services" class="py-32 bg-[#fdfcf8] relative">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="max-w-4xl mx-auto text-center mb-24 space-y-6 scroll-reveal">
+                        <div class="section-tag justify-center">What we Offer</div>
+                        <h3 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900">Deep-Dive <br> <span class="faded-text-gradient uppercase">Solutions</span></h3>
+                        <p class="text-gray-500 font-medium text-lg leading-relaxed max-w-2xl mx-auto">
+                            Choose a category to explore our specialized engineering paths tailored to solve your unique business challenges.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6 scroll-reveal">
+                        <template x-for="cat in categories" :key="cat.id">
+                            <!-- Cards Animation Fixed: removed non-working Tailwind hover class in favor of CSS block rule -->
+                            <div @click="openCategory(cat)" 
+                                 @mousemove="handleTilt($event)" 
+                                 @mouseleave="resetTilt($event)"
+                                 class="tilt-card stagger-item group cursor-pointer p-10 rounded-[3rem] border border-pos-beige/20 bg-white h-[450px] flex flex-col justify-between">
+                                <div class="space-y-8">
+                                    <div class="w-16 h-16 rounded-2xl bg-pos-primary/5 group-hover:bg-white/10 flex items-center justify-center text-pos-primary group-hover:text-white transition-all duration-500 text-2xl">
+                                        <i :class="cat.icon"></i>
+                                    </div>
+                                    <h4 class="text-2xl font-black leading-tight text-gray-900 group-hover:text-white tracking-tighter" x-text="cat.name"></h4>
+                                </div>
+                                <div class="space-y-6">
+                                    <p class="text-sm font-medium text-gray-500 group-hover:text-white/90" x-text="cat.shortDesc"></p>
+                                    <div class="flex items-center text-pos-primary group-hover:text-white font-black text-[10px] uppercase tracking-widest transition-colors duration-300">
+                                        Explore Details <i class="fas fa-chevron-right ml-2 group-hover:translate-x-3 transition-transform duration-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Redesigned Portfolio Section (Lean, Immersive, Editorial Slider) -->
+            <section id="work" class="py-32 bg-pos-primary text-white relative overflow-hidden" 
+                x-data="{ 
+                    workIndex: 0, 
+                    totalWork: 3,
+                    touchStart: 0,
+                    touchEnd: 0,
+                    next() { this.workIndex = (this.workIndex + 1) % this.totalWork },
+                    prev() { this.workIndex = (this.workIndex - 1 + this.totalWork) % this.totalWork },
+                    handleSwipe() {
+                        if (this.touchStart - this.touchEnd > 50) this.next();
+                        if (this.touchEnd - this.touchStart > 50) this.prev();
+                    }
+                }"
+                @touchstart="touchStart = $event.changedTouches[0].screenX"
+                @touchend="touchEnd = $event.changedTouches[0].screenX; handleSwipe()">
+                
+                <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full -translate-x-1/2 translate-y-1/2"></div>
+
+                <div class="max-w-7xl mx-auto px-4 relative z-10">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-20 scroll-reveal">
+                        <div class="space-y-4">
+                            <div class="section-tag text-white/60">Selected Work</div>
+                            <h3 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-white">Digital <br> <span class="italic text-pos-logo-dark uppercase">Showcase</span></h3>
+                        </div>
+                        
+                        <div class="flex space-x-4 mt-8 md:mt-0">
+                            <button @click="prev()" class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all duration-300 text-lg active:scale-90">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <button @click="next()" class="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all duration-300 text-lg active:scale-90">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Immersive Editorial Cards Container -->
+                    <div class="relative scroll-reveal">
+                        <div class="flex transition-transform duration-[800ms] cubic-bezier(0.23, 1, 0.32, 1)" :style="`transform: translateX(-${workIndex * 100}%)`">
+                            
+                            <!-- Project 1 -->
+                            <div class="w-full flex-shrink-0 px-2 md:px-4">
+                                <div class="relative overflow-hidden rounded-[3.5rem] bg-gray-900 h-[600px] group">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bbda3ef66851?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
+                                    <div class="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
+                                        <div class="max-w-2xl space-y-4">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
+                                                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">Fintech Innovation</span>
+                                            </div>
+                                            <h4 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none">Zenith Banking</h4>
+                                            <p class="text-white/60 text-lg font-medium leading-relaxed">Scaling secure, high-concurrency cloud cores for global financial operations.</p>
+                                            <div class="pt-6">
+                                                <button class="faded-gradient-bg text-white px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 2 -->
+                            <div class="w-full flex-shrink-0 px-2 md:px-4">
+                                <div class="relative overflow-hidden rounded-[3.5rem] bg-gray-900 h-[600px] group">
+                                    <img src="https://images.unsplash.com/photo-1512756783936-3979c5f2e729?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
+                                    <div class="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
+                                        <div class="max-w-2xl space-y-4">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
+                                                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">AI Logistics</span>
+                                            </div>
+                                            <h4 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none">Supply Sync</h4>
+                                            <p class="text-white/60 text-lg font-medium leading-relaxed">Real-time predictive synchronization for distributed retail inventory systems.</p>
+                                            <div class="pt-6">
+                                                <button class="faded-gradient-bg text-white px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Project 3 -->
+                            <div class="w-full flex-shrink-0 px-2 md:px-4">
+                                <div class="relative overflow-hidden rounded-[3.5rem] bg-gray-900 h-[600px] group">
+                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
+                                    <div class="absolute inset-0 p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
+                                        <div class="max-w-2xl space-y-4">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
+                                                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">SaaS Strategy</span>
+                                            </div>
+                                            <h4 class="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-none">Cloud Architect</h4>
+                                            <p class="text-white/60 text-lg font-medium leading-relaxed">Enterprise modernization of legacy infrastructure for agile digital delivery.</p>
+                                            <div class="pt-6">
+                                                <button class="faded-gradient-bg text-white px-8 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Refined Minimal Indicators -->
+                        <div class="absolute top-8 right-12 flex space-x-2">
+                            <template x-for="(i, idx) in [0, 1, 2]">
+                                <div class="h-1 rounded-full transition-all duration-500" 
+                                    :class="workIndex === idx ? 'w-8 bg-white' : 'w-2 bg-white/20'"></div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minimal Professional Enquiry Section -->
+            <section id="contact" class="py-32 bg-[#fdfcf8]">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="bg-white border border-pos-primary/5 rounded-[4rem] shadow-sm scroll-reveal p-8 md:p-20 overflow-hidden relative">
+                        <!-- Subtle Background Detail -->
+                        <div class="absolute top-0 right-0 w-64 h-64 subtle-gradient-bg blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+                        
+                        <div class="grid lg:grid-cols-5 gap-20 relative z-10">
+                            <!-- Sidebar Info -->
+                            <div class="lg:col-span-2 space-y-12">
+                                <div class="space-y-6">
+                                    <!-- Bold "Connect with us" heading above "Let's build" -->
+                                    <div class="section-tag font-bold">Connect with us</div>
+                                    <h3 class="text-5xl font-black tracking-tighter uppercase leading-tight text-gray-900">Let's build <br> <span class="faded-text-gradient italic">the future.</span></h3>
+                                    <p class="text-gray-500 text-lg font-medium leading-relaxed">Reach out to our engineering leads to discuss your vision and technical requirements.</p>
+                                </div>
+
+                                <div class="pt-6 flex space-x-6">
+                                    <!-- LinkedIn link -->
+                                    <a href="https://www.linkedin.com/company/posipher-solutions/" class="text-gray-300 hover:text-pos-primary transition-colors text-xl" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                    <!-- Instagram link -->
+                                    <a href="https://www.instagram.com/posiphersolutions?igsh=MWtleDZtZW1mYzdyeA==" class="text-gray-300 hover:text-pos-primary transition-colors text-xl" target="_blank"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Data Collection Form -->
+                            <div class="lg:col-span-3">
+                                <!-- Removed bold "Connect with us" from top left of form -->
+                                <form @submit.prevent="submitForm" class="space-y-10">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                                        <!-- Heading: Name -->
+                                        <div class="space-y-2 group">
+                                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">Name</label>
+                                            <input type="text" x-model="formData.name" placeholder="Full Name" required class="w-full border-b border-gray-100 py-3 focus:border-pos-logo-dark outline-none font-bold text-xl bg-transparent transition-all duration-500 placeholder:text-gray-200">
+                                        </div>
+                                        <!-- Heading: E-mail -->
+                                        <div class="space-y-2 group">
+                                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">E-mail</label>
+                                            <input type="email" x-model="formData.email" placeholder="Email Address" required class="w-full border-b border-gray-100 py-3 focus:border-pos-logo-dark outline-none font-bold text-xl bg-transparent transition-all duration-500 placeholder:text-gray-200">
+                                        </div>
+                                        <!-- Heading: Contact Number -->
+                                        <div class="space-y-2 group">
+                                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">Contact Number</label>
+                                            <input type="tel" x-model="formData.phone" placeholder="Contact Number" required class="w-full border-b border-gray-100 py-3 focus:border-pos-logo-dark outline-none font-bold text-xl bg-transparent transition-all duration-500 placeholder:text-gray-200">
+                                        </div>
+                                        <!-- CUSTOM Requirement Type Dropdown -->
+                                        <div class="space-y-2 group" x-data="{ open: false, selected: 'Select category' }">
+                                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">Requirement Type</label>
+                                            <div class="relative">
+                                                <button @click="open = !open" type="button" class="w-full border-b border-gray-100 py-3 focus:border-pos-logo-dark outline-none font-bold text-xl bg-transparent transition-all duration-500 flex justify-between items-center text-left">
+                                                    <span :class="selected === 'Select category' ? 'text-gray-200' : 'text-gray-900'" x-text="selected"></span>
+                                                    <i class="fas fa-chevron-down text-xs transition-transform duration-300" :class="open ? 'rotate-180' : ''"></i>
+                                                </button>
+                                                <!-- Dropdown Menu -->
+                                                <div x-show="open" 
+                                                     @click.away="open = false" 
+                                                     x-transition:enter="transition ease-out duration-200" 
+                                                     x-transition:enter-start="opacity-0 translate-y-2 scale-95" 
+                                                     x-transition:enter-end="opacity-100 translate-y-0 scale-100" 
+                                                     x-transition:leave="transition ease-in duration-100" 
+                                                     x-transition:leave-start="opacity-100 scale-100" 
+                                                     x-transition:leave-end="opacity-0 scale-95" 
+                                                     class="absolute z-50 left-0 right-0 mt-2 bg-white/90 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl overflow-hidden py-3">
+                                                    <template x-for="cat in categories" :key="cat.id">
+                                                        <div @click="selected = cat.name; formData.service = cat.name; open = false" 
+                                                             class="px-6 py-4 text-sm font-bold text-gray-600 hover:bg-pos-logo-dark hover:text-white transition-all cursor-pointer flex justify-between items-center group/item">
+                                                            <span x-text="cat.name"></span>
+                                                            <i class="fas fa-plus text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity"></i>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="md:col-span-2 space-y-2 group">
+                                            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">Objective Overview</label>
+                                            <textarea rows="3" x-model="formData.message" placeholder="Brief overview of the service required..." required class="w-full border-b border-gray-100 py-3 focus:border-pos-logo-dark outline-none font-bold text-xl resize-none bg-transparent transition-all duration-500 placeholder:text-gray-200"></textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="pt-8">
+                                        <div class="magnetic-wrap w-full md:w-auto">
+                                            <button type="submit" class="faded-gradient-bg text-white px-12 py-6 rounded-[2rem] font-black uppercase tracking-widest text-[11px] shadow-2xl shadow-pos-primary/30 hover:scale-[1.02] active:scale-95 transition-all">
+                                                Request Consultation
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div x-show="formSubmitted" x-cloak x-transition:enter="transition duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="mt-12 p-8 subtle-gradient-bg text-pos-logo-dark rounded-[2.5rem] text-center font-black uppercase tracking-widest text-xs border border-pos-logo-dark/10">
+                                    <i class="fas fa-check-circle mr-3"></i> Transmission Received Successfully.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- DETAIL VIEW -->
+        <div x-show="currentView === 'detail'" x-cloak class="min-h-screen pt-32 pb-24" :style="'background: linear-gradient(135deg, #fdfcf8 0%, #e9e0c2 100%);'">
+            <div class="max-w-7xl mx-auto px-4">
+                <button @click="scrollTo('hero')" class="group mb-20 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[10px]">
+                    <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-3 transition-transform duration-300"></i> Return to What we Offer
+                </button>
+                <div class="grid lg:grid-cols-5 gap-24 relative">
+                    <div class="lg:col-span-2 relative">
+                        <div class="lg:sticky lg:top-32 space-y-12 self-start z-10 scroll-reveal active">
+                            <div class="w-24 h-24 rounded-[2rem] faded-gradient-bg flex items-center justify-center text-white text-4xl shadow-2xl animate-float">
+                                <i :class="selectedCategory?.icon"></i>
+                            </div>
+                            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight uppercase leading-tight break-words text-gray-900" x-text="selectedCategory?.name"></h2>
+                            <p class="text-xl text-gray-600 font-medium leading-relaxed" x-text="selectedCategory?.longDesc"></p>
+                            
+                            <div class="p-10 glass border border-pos-primary/10 rounded-[3rem] shadow-xl bg-white/40">
+                                <h4 class="text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Execution Guarantee</h4>
+                                <ul class="space-y-4 text-sm font-bold text-gray-600">
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> Agile Core Squad Deployment</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> End-to-End Scalability Audit</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> 24/7 Security Governance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3 space-y-10 scroll-reveal active">
+                        <div class="section-tag mb-4">Detailed Path</div>
+                        <template x-if="selectedCategory">
+                            <div class="space-y-8">
+                                <template x-for="(service, idx) in selectedCategory.services" :key="service.name">
+                                    <div class="p-12 bg-white border border-pos-beige/20 rounded-[3.5rem] shadow-lg group hover:shadow-2xl transition-all duration-500 stagger-item active" :style="`transition-delay: ${idx * 100}ms`">
+                                        <div class="flex justify-between items-center mb-8">
+                                            <h4 class="text-2xl md:text-3xl font-bold text-pos-primary tracking-tight uppercase" x-text="service.name"></h4>
+                                            <div class="w-12 h-12 rounded-full border border-pos-primary/20 flex items-center justify-center text-pos-primary group-hover:bg-pos-primary group-hover:text-white transition-all duration-300">
+                                                <i class="fas fa-plus"></i>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 font-medium mb-10 text-lg leading-relaxed" x-text="service.details"></p>
+                                        <div class="subtle-gradient-bg p-8 rounded-[2.5rem]">
+                                            <div class="text-[10px] font-black uppercase tracking-widest text-pos-logo-dark mb-6">Enterprise Value</div>
+                                            <div class="flex flex-wrap gap-3">
+                                                <template x-for="val in service.value.split('•')" :key="val">
+                                                    <span x-show="val.trim()" class="text-[10px] font-black uppercase tracking-tighter bg-white text-pos-maroon px-6 py-3 rounded-full shadow-sm hover:scale-110 transition-transform duration-300" x-text="val.trim()"></span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- AI Chat Assistant -->
+    <div class="fixed bottom-10 right-4 sm:right-10 z-[100]" x-data="{ open: false }">
+        <!-- Optimized Chat Trigger -->
+        <div class="relative group">
+            <div class="absolute inset-0 faded-gradient-bg rounded-2xl animate-ping opacity-10 group-hover:opacity-20" x-show="!open"></div>
+            <button @click="open = !open" 
+                class="relative w-12 h-12 sm:w-13 sm:h-13 faded-gradient-bg text-white rounded-2xl shadow-[0_10px_30px_rgba(93,58,26,0.3)] flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-95 overflow-hidden">
+                <i class="fas fa-comment-dots text-lg transition-transform duration-500 group-hover:rotate-12" x-show="!open"></i>
+                <i class="fas fa-times text-lg" x-show="open" x-cloak></i>
+                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </button>
+        </div>
+
+        <!-- Refined Chat Window -->
+        <div x-show="open" x-cloak 
+            x-transition:enter="transition cubic-bezier(0.23, 1, 0.32, 1) duration-600" 
+            x-transition:enter-start="opacity-0 scale-95 translate-y-10 translate-x-2" 
+            x-transition:enter-end="opacity-100 scale-100 translate-y-0 translate-x-0" 
+            x-transition:leave="transition cubic-bezier(0.23, 1, 0.32, 1) duration-400" 
+            x-transition:leave-start="opacity-100 scale-100" 
+            x-transition:leave-end="opacity-0 scale-95 translate-y-10 translate-x-2" 
+            class="absolute bottom-16 right-0 w-[calc(100vw-32px)] sm:w-[340px] max-h-[calc(100vh-120px)] sm:max-h-[520px] bg-white rounded-[2.5rem] shadow-[0_30px_90px_rgba(0,0,0,0.15)] border border-pos-beige/10 overflow-hidden flex flex-col ring-1 ring-pos-primary/5">
+            
+            <!-- Compact Tech Header -->
+            <div class="faded-gradient-bg p-5 text-white relative flex-shrink-0">
+                <div class="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="flex items-center space-x-3 relative z-10">
+                    <div class="relative">
+                        <div class="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center text-base backdrop-blur-md border border-white/10 shadow-inner">
+                            <i class="fas fa-robot text-white/95"></i>
+                        </div>
+                        <div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-pos-logo-dark rounded-full">
+                            <div class="absolute inset-0 bg-emerald-400 rounded-full animate-ping opacity-75"></div>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-base font-black tracking-tight uppercase leading-none">Posi-Engine</div>
+                        <div class="flex items-center space-x-1.5 mt-0.5">
+                            <span class="text-[7px] font-black uppercase tracking-widest text-white/60">Neural Assistant</span>
+                            <span class="w-0.5 h-0.5 rounded-full bg-white/30"></span>
+                            <span class="text-[7px] font-bold text-white/80">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Polished Chat Feed -->
+            <div class="flex-1 p-5 overflow-y-auto custom-scroll space-y-6 bg-[#fdfcf8]/30" id="chatContent">
+                <!-- Welcome -->
+                <div class="flex items-start space-x-2.5">
+                    <div class="w-6 h-6 rounded-lg bg-pos-primary/10 flex items-center justify-center text-pos-primary flex-shrink-0 mt-0.5">
+                        <i class="fas fa-sparkles text-[8px]"></i>
+                    </div>
+                    <div class="p-4 bg-white border border-pos-beige/10 rounded-2xl rounded-tl-none text-[12px] font-medium leading-relaxed shadow-sm text-gray-700">
+                        Hello. I'm the Posi-Engine. Ready to facilitate your digital engineering journey.
+                    </div>
+                </div>
+
+                <template x-for="chat in chatHistory">
+                    <div class="flex flex-col space-y-1" :class="chat.role === 'user' ? 'items-end' : 'items-start'">
+                        <div class="max-w-[88%] p-4 rounded-2xl text-[12px] font-medium leading-relaxed shadow-sm transition-all duration-300" 
+                             :class="chat.role === 'user' 
+                                ? 'faded-gradient-bg text-white rounded-tr-none' 
+                                : 'bg-white border border-pos-beige/10 text-gray-700 rounded-tl-none'">
+                            <span x-text="chat.text"></span>
+                        </div>
+                        <span class="text-[6px] font-black uppercase tracking-widest text-gray-400 px-3 mt-1" x-text="chat.role === 'user' ? 'Transmission Sender' : 'Posi-Engine'"></span>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Suggestion Interface -->
+            <div class="p-5 border-t border-pos-beige/10 bg-white/80 backdrop-blur-sm flex-shrink-0">
+                <div class="flex items-center space-x-2 mb-3.5 px-1">
+                    <i class="fas fa-bolt text-pos-primary text-[8px] animate-pulse"></i>
+                    <span class="text-[8px] font-black uppercase tracking-widest text-gray-400">Quick Path Selection</span>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <template x-for="q in predefinedQuestions">
+                        <button @click="askQuestion(q)" 
+                            class="text-[9px] font-extrabold bg-[#fdfcf8] text-pos-primary border border-pos-primary/10 px-4 py-2.5 rounded-xl hover:faded-gradient-bg hover:text-white hover:border-transparent transition-all duration-500 shadow-sm uppercase tracking-tighter active:scale-95 group">
+                            <span x-text="q.q"></span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Footer Details -->
+            <div class="px-5 pb-4 bg-white flex justify-center flex-shrink-0">
+                <div class="text-[6px] font-bold text-gray-300 uppercase tracking-[0.3em] flex items-center">
+                    <i class="fas fa-shield-halved mr-1.5 opacity-50"></i> Encrypted Session Verified
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Integrated Footer -->
+    <footer class="bg-white py-24 border-t border-pos-beige/20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 md:px-12">
+            <!-- Footer Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+                
+                <!-- Column 1: Brand Anchor -->
+                <div class="space-y-8">
+                    <div class="flex items-center group cursor-pointer" @click="scrollTo('hero')">
+                        <div class="relative w-11 h-11 overflow-hidden rounded-xl faded-gradient-bg flex items-center justify-center text-white mr-3 transition-all duration-500 group-hover:rotate-12">
+                            <span class="font-extrabold text-2xl">P</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xl font-black tracking-tight text-pos-primary uppercase leading-none">Posipher</span>
+                            <span class="text-[8px] font-bold uppercase tracking-[0.4em] text-pos-clay mt-1">Solutions</span>
+                        </div>
+                    </div>
+                    <p class="text-sm font-medium text-gray-500 leading-relaxed max-w-xs">
+                        Architecting the future through AI-native digital engineering and mission-critical enterprise systems.
+                    </p>
+                    <div class="flex space-x-5">
+                        <a href="https://www.linkedin.com/company/posipher-solutions/" class="w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 hover:text-pos-primary hover:border-pos-primary transition-all duration-300" target="_blank"><i class="fab fa-linkedin-in text-sm"></i></a>
+                        <a href="https://www.instagram.com/posiphersolutions?igsh=MWtleDZtZW1mYzdyeA==" class="text-gray-300 hover:text-pos-primary transition-colors text-xl" target="_blank"><i class="fab fa-instagram text-sm"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Strategic Services -->
+                <div class="space-y-8">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-pos-logo-dark">Core Services</h4>
+                    <ul class="space-y-4">
+                        <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Custom Software</a></li>
+                        <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Cloud-Native Ops</a></li>
+                        <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">CRM/ERP Hub</a></li>
+                        <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">SaaS Innovation</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Contact Hub -->
+                <div class="space-y-8">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-pos-logo-dark">Contact Hub</h4>
+                    <div class="space-y-6">
+                        <a href="mailto:contact@posipher.com" class="flex items-center space-x-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-pos-primary/5 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-paper-plane text-xs"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-600 group-hover:text-pos-logo-dark">contact@posipher.com</span>
+                        </a>
+                        <a href="tel:7558319650" class="flex items-center space-x-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-pos-primary/5 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-phone text-xs"></i>
+                            </div>
+                            <span class="text-sm font-bold text-gray-600 group-hover:text-pos-logo-dark">7558319650</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 4: Quick Links -->
+                <div class="space-y-8">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-pos-logo-dark">Company</h4>
+                    <ul class="space-y-4">
+                        <li><a @click="scrollTo('about')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">About Excellence</a></li>
+                        <li><a @click="scrollTo('work')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Our Showcase</a></li>
+                        <li><a @click="scrollTo('contact')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Inquire Transmission</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-gray-100 gap-8">
+                <div class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-400">
+                    &copy; 2024 Posipher Solutions // Built for Impact.
+                </div>
+                <div class="flex space-x-12 text-pos-primary text-[10px] font-black uppercase tracking-widest">
+                    <a href="#" class="hover:underline hover:text-pos-logo-dark transition-colors">Legal Architecture</a>
+                    <a href="#" class="hover:underline hover:text-pos-logo-dark transition-colors">Privacy Governance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
