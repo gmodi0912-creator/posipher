@@ -61,11 +61,11 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Enhanced Reveal Animations */
+        /* Enhanced Reveal Animations with buttery timing */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(30px) scale(0.98);
-            transition: all 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform, opacity;
         }
 
@@ -74,11 +74,11 @@
             transform: translateY(0);
         }
 
-        /* Staggered Item Entrance Transitions */
+        /* Staggered Item Entrance Transitions with fluid timing */
         .stagger-item {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), background 0.4s ease, box-shadow 0.4s ease;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), background 0.6s ease, box-shadow 0.6s ease;
         }
 
         .stagger-item.active {
@@ -88,26 +88,25 @@
 
         .magnetic-wrap {
             display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .tilt-card {
-            /* Refined base transition for a premium return-to-center feel */
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.4s ease, filter 0.4s ease, opacity 0.4s ease;
+            /* REFINED: Ultra-smooth base transition for high-end feel */
+            transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.8s cubic-bezier(0.23, 1, 0.32, 1), background 0.6s ease, filter 0.6s ease, opacity 0.6s ease;
             transform-style: preserve-3d;
             will-change: transform;
         }
 
-        /* Fixed: Tilt card hover background logic move to CSS for reliability */
+        /* Home Category Card Original Design: Gradient Fill on Hover/Active */
         .tilt-card:hover, .tilt-card.active-tilt {
             background: linear-gradient(135deg, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%) !important;
-            box-shadow: 0 25px 50px -12px rgba(93, 58, 26, 0.25);
+            box-shadow: 0 40px 80px -20px rgba(93, 58, 26, 0.4);
         }
 
-        /* Force color effects for mobile/touch active state */
         .active-tilt .w-12, .active-tilt .w-16 { background-color: rgba(255, 255, 255, 0.1) !important; color: white !important; }
         .active-tilt h4, .active-tilt p, .active-tilt .flex.items-center { color: white !important; }
-        .active-tilt i.fa-chevron-right { transform: translateX(12px); transition: transform 0.3s ease; }
+        .active-tilt i.fa-chevron-right { transform: translateX(12px); transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
 
         .neural-bg {
             position: absolute;
@@ -122,7 +121,6 @@
         .custom-scroll::-webkit-scrollbar { width: 4px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #bc8762; border-radius: 10px; }
         
-        /* Hide scrollbar for the mobile services carousel */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -141,7 +139,7 @@
 
         .faded-gradient-bg {
             background: linear-gradient(135deg, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
         .faded-text-gradient {
@@ -154,19 +152,74 @@
             background: linear-gradient(135deg, rgba(93, 58, 26, 0.1) 0%, rgba(188, 135, 98, 0.15) 50%, rgba(93, 58, 26, 0.1) 100%);
         }
 
-        /* Improved Image Entrance */
         .img-mask {
             mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
             transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* Custom Select Arrow */
-        .custom-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235d3a1a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.5rem center;
-            background-size: 1.5em;
+        /* Animated Border Logic */
+        .animated-border-card {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-border-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent, 
+                #bc8762, 
+                #5d3a1a, 
+                #e9e0c2,
+                transparent 30%
+            );
+            animation: rotate-border 4s linear infinite;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+
+        /* Generic active border visibility */
+        .active-border::before {
+            opacity: 1 !important;
+        }
+
+        /* Desktop specific: Service cards show border on hover, but Categories show original Tilt logic */
+        .detail-service-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Category cards on Home Page: preserve original Design on desktop */
+        @media (min-width: 1025px) {
+            .home-category-card::before, 
+            .home-category-card::after {
+                display: none !important;
+            }
+        }
+
+        .animated-border-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            z-index: -1;
+            border-radius: inherit;
+            transition: background 0.4s ease;
+        }
+
+        /* FIX: Ensure the inner background matches the theme gradient when tilted/active on mobile */
+        /* REMOVED Gradient override for detail view cards to keep them white */
+        /* .animated-border-card.active-tilt::after { background: linear-gradient(...) !important; } */
+
+        @keyframes rotate-border {
+            100% { transform: rotate(360deg); }
         }
     </style>
 
@@ -180,7 +233,8 @@
                 formData: { name: '', email: '', phone: '', service: '', message: '' },
                 selectedCategory: null,
                 chatHistory: [],
-                activeCategoryMobile: 0,
+                activeCategoryMobile: -1, // Vertical centered category card tracking
+                activeServiceMobile: -1,  // Vertical centered service card tracking
                 isMobile: window.innerWidth < 1024,
                 categories: [
                     {
@@ -188,14 +242,14 @@
                         name: "Custom Software Development",
                         icon: "fas fa-code",
                         shortDesc: "Tailored web platforms and enterprise-grade applications.",
-                        longDesc: "We engineer resilient, mission-critical systems that solve unique business challenges and scale seamlessly.",
+                        longDesc: "Our custom software development services deliver tailored solutions that address your unique business challenges. We combine cutting-edge technology with industry best practices to create robust, scalable applications that drive growth and efficiency.",
                         services: [
-                            { name: "Custom Web Platforms", details: "Tailored platforms designed around unique business workflows.", value: "Eliminates inefficiencies • Enables rapid expansion • Seamless UX" },
-                            { name: "Enterprise-Grade Applications", details: "Engineered for complex operations and sensitive data handling.", value: "Reliable at scale • Compliance-ready • Long-term stability" },
-                            { name: "Scalable Backend Systems", details: "Resilient architectures that handle growth and peak demand.", value: "No bottlenecks • Fast performance • Cost-optimized" },
-                            { name: "API-First Architectures", details: "Integration-ready systems for effortless connectivity.", value: "Better interoperability • Reduced future costs • Faster integrations" },
-                            { name: "UI/UX & Product Experience", details: "Consistent visual identity and intuitive user flows.", value: "More leads • Higher sales • Strong ROI" },
-                            { name: "Mobile App Development", details: "High-performance solutions for engagement and productivity.", value: "High stability • Strong mobile presence" }
+                            { name: "Custom Web Platforms", details: "Responsive, scalable web applications built with modern frameworks like React, Angular, and Vue.js. We create fast, secure, and user-friendly web solutions.", value: "Progressive Web Apps (PWA) • Single Page Applications (SPA) • E-commerce Platforms • Content Management Systems • Admin Dashboards" },
+                            { name: "Mobile App", details: "Native and cross-platform mobile applications for iOS and Android. We deliver seamless mobile experiences that engage users and drive results.", value: "iOS Native (Swift) • Android Native (Kotlin) • React Native • Flutter • Mobile-First Design" },
+                            { name: "Enterprise-Grade Applications", details: "Large-scale enterprise applications designed to streamline operations, improve productivity, and support business growth.", value: "ERP Systems • CRM Solutions • Supply Chain Management • Workflow Automation • Legacy System Modernization" },
+                            { name: "API-First Architectures", details: "Robust RESTful and GraphQL APIs that enable seamless integration between systems and third-party services.", value: "RESTful API Design • GraphQL Implementation • Microservices Architecture • Third-Party Integrations • API Security" },
+                            { name: "UI/UX", details: "Data-driven design decisions based on user research, usability testing, and behavioral analytics.", value: "Responsive Design • Usability Testing • Heatmap Analysis • User Journey Mapping • Gesture-Based Interactions" },
+                            { name: "Backend", details: "Building secure, reliable, and highly scalable backend systems that power business growth.", value: "Cloud-native architecture • Microservices driven design • Fault-tolerant systems • Continuous monitoring & alerts • Secure data handling" }
                         ]
                     },
                     {
@@ -203,12 +257,13 @@
                         name: "Cloud‑Native Architecture & DevOps",
                         icon: "fas fa-cloud",
                         shortDesc: "Modern cloud environments and automated pipelines.",
-                        longDesc: "Transform your infrastructure into an agile, cloud-native ecosystem with CI/CD automation and high availability.",
+                        longDesc: "Our cloud migration and management services help businesses leverage the full potential of cloud computing, ensuring secure, scalable, and cost-effective infrastructure.",
                         services: [
-                            { name: "Cloud Migration", details: "Transitioning legacy systems to modern cloud environments.", value: "Scalability • Cost-savings • Better disaster recovery" },
-                            { name: "Infrastructure as Code", details: "Automated server provisioning and management.", value: "Reliable setup • Faster scaling • Reduced manual error" },
-                            { name: "CI/CD Pipeline Automation", details: "Streamlined deployment cycles for faster delivery.", value: "Frequent updates • Higher code quality • Rapid bug fixes" },
-                            { name: "Containerization (K8s)", details: "Manage applications in isolated, scalable containers.", value: "Resource efficiency • Easier deployment • Portability" }
+                            { name: "Cloud Migration", details: "Comprehensive assessment and planning for moving your applications and data to the cloud with minimal disruption.", value: "Cloud Readiness Assessment • Migration Planning • Phased Migration" },
+                            { name: "AWS Solution", details: "End-to-end AWS implementation and management services leveraging the full suite of Amazon Web Services.", value: "AWS Security • EC2 & Lambda • S3 & RDS • CloudFront CDN • ECS & EKS" },
+                            { name: "Azure Solutions", details: "Microsoft Azure cloud solutions for enterprise applications, data management, and hybrid cloud scenarios.", value: "Azure VM & Functions • Azure SQL Database • Azure DevOps • Azure Kubernetes Service • Azure Active Directory" },
+                            { name: "Cloud Optimization", details: "Ongoing cloud infrastructure optimization to reduce costs, improve performance, and enhance security.", value: "Cost Optimization • Performance Tuning • Auto-scaling • Disaster Recovery • Security Hardening" },
+                            { name: "CI/CD Pipeline Automation", details: "build, test, and deploy code changes rapidly and reliably from development to production, ensuring faster, higher-quality software releases through automation.", value: "Automated build pipeline • Continuous testing workflow • Zero-touch deployments • Faster release cycles • Reliable production delivery" }
                         ]
                     },
                     {
@@ -216,12 +271,12 @@
                         name: "CRM & ERP Solutions",
                         icon: "fas fa-database",
                         shortDesc: "Unified business intelligence and operational management.",
-                        longDesc: "Integrate your sales, finance, and operations into a single source of truth for real-time visibility.",
+                        longDesc: "Integrate and automate your core business operations across finance, sales, inventory, HR, and supply chain — unifying everything into a single source of truth for real-time visibility, smarter decisions, and seamless enterprise-wide efficiency.",
                         services: [
-                            { name: "CRM Implementation", details: "Tailored platforms for lead and client lifecycle tracking.", value: "Higher retention • Unified customer data • Better sales" },
-                            { name: "ERP Migration & Modernization", details: "Moving heavy legacy ERPs to modern, agile platforms.", value: "Improved visibility • Better reporting • Leaner ops" },
-                            { name: "Data Synchronization", details: "Ensuring real-time accurate data availability across all tools.", value: "Fewer errors • Real-time insight • Stronger decisions" },
-                            { name: "Custom Portals", details: "Secured client and employee self-service interfaces.", value: "Lower support costs • Enhanced engagement" }
+                            { name: "CRM Implementation", details: "We integrate core business platforms into seamless, unified ecosystems.", value: "Scalable enterprise backbone • Centralized customer data • Intelligent lead management • Integrated workflow automation" },
+                            { name: "ERP Migration", details: "Transform legacy ERP systems into modern, scalable platforms by migrating data, applications, and workflows to future-ready architecture — improving performance, security, integration, and real-time visibility while minimizing business disruption.", value: "Seamless ERP migration • Legacy system upgrade • Secure data transfer • Enhanced process automation" },
+                            { name: "Data Synchronization", details: "Ensure consistent, accurate, and real-time data across applications, databases, and systems by seamlessly syncing information—eliminating silos, reducing errors, and enabling unified visibility across your business.", value: "Real-time data sync and data availability • Single data truth • Cross-system consistency • Bidirectional synchronization • Continuous data alignment" },
+                            { name: "Custom Portals", details: "Design and build secure, user-friendly portals tailored to your business needs — enabling customers, partners, and employees to access real-time data, collaborate, and perform key actions seamlessly within your CRM and ERP ecosystem.", value: "Self-service customer portal • Personalized user experience • Centralized information access • Role-based secure access" }
                         ]
                     },
                     {
@@ -229,12 +284,11 @@
                         name: "Testing, Maintenance & IT Support",
                         icon: "fas fa-check-double",
                         shortDesc: "Quality assurance and proactive system maintenance.",
-                        longDesc: "Ensure zero failures with rigorous testing and 24/7 reactive technical assistance.",
+                        longDesc: "Ensure your systems run smoothly and securely through continuous testing, proactive maintenance, and responsive IT support — reducing downtime, improving performance, and keeping your business always-on.",
                         services: [
-                            { name: "QA & Performance Testing", details: "Rigorous quality, speed, and reliability auditing.", value: "Fewer failures • Stronger reliability • Better UX" },
-                            { name: "Ongoing Maintenance", details: "Continuously monitor, update, and enhance applications post launch.", value: "Less downtime • Stable performance • Lower lifecycle cost" },
-                            { name: "Security Updates", details: "Proactive upgrades and vulnerability protection.", value: "Lower cyber risk • Stronger compliance • Data safety" },
-                            { name: "Technical Support", details: "Responsive assistance to resolve issues quickly.", value: "Minimal disruption • Faster resolutions" }
+                            { name: "QA Testing", details: "Ensure your applications are reliable, secure, and high-performing through rigorous quality assurance, performance benchmarking, and real-world workload testing — preventing defects, improving stability, and delivering a seamless user experience.", value: "End-to-end QA • Real-world load testing • Security vulnerability checks • Bug detection & prevention • Regression testing coverage" },
+                            { name: "Maintenance", details: "continuous monitoring, optimization, and support to keep your systems secure, stable, up-to-date, and performing at their best — preventing downtime and ensuring long-term reliability.", value: "Continuous system monitoring • Preventive maintenance planning • Minimal downtime assurance • System health reporting • Long-term reliability" },
+                            { name: "Security", details: "Deliver regular security patches, vulnerability fixes, and threat monitoring to protect your systems from emerging risks — ensuring data safety, compliance, and uninterrupted business operations.", value: "Regular security patches • Threat detection monitoring • Data breach prevention • Secure infrastructure hardening • Compliance-driven updates" }
                         ]
                     },
                     {
@@ -242,12 +296,12 @@
                         name: "SaaS Product Development",
                         icon: "fas fa-microchip",
                         shortDesc: "Concept to MVP and scalable multi-tenant platforms.",
-                        longDesc: "Launch and scale subscription-based powerhouses with battle-tested architectures.",
+                        longDesc: "Design and build scalable, cloud-native SaaS products with seamless user experiences — enabling faster growth, reliable performance, effortless global access and launch subscription-based powerhouses with battle-tested architectures.",
                         services: [
-                            { name: "SaaS Architecture & MVP", details: "Designing and launching scalable platforms from concept.", value: "Faster launch • Validated ideas • Reduced risk" },
-                            { name: "Subscription & Billing", details: "Secure recurring billing and monetization frameworks.", value: "Predictable revenue • Flexible pricing • Smooth billing" },
-                            { name: "Multi-Tenant Platforms", details: "Support multiple businesses securely on one platform.", value: "Lower cost-to-serve • Efficient scaling • Isolation" },
-                            { name: "GTM Readiness", details: "Onboarding, analytics, and reliability for launch.", value: "Faster adoption • Better onboarding • Higher retention" }
+                            { name: "Saas MVP", details: "Design and deliver a scalable, secure SaaS architecture and rapid MVP  that validates your product vision early — reducing risk, accelerating launch, and laying a strong foundation for future growth.", value: "Rapid MVP launch • Market validation first • Agile product iteration • Secure platform design • Performance-driven structure" },
+                            { name: "Subscription & billing", details: "Implement flexible, automated subscription and billing systems that handle plans, invoicing, payments, and renewals seamlessly — improving revenue accuracy, customer experience, and financial visibility.", value: "Automated recurring billing • Secure payment processing • Revenue recognition support • Tax and compliance ready • Reduced churn management" },
+                            { name: "Multi Tenant", details: "Design and build secure, scalable multi-tenant platforms that let multiple customers share a single applicationwith isolated data, optimized performance, and simplified management — reducing costs while accelerating growth.", value: "Shared app architecture • Isolated tenant data • Centralized tenant management • High-availability platform" },
+                            { name: "GTM", details: "Prepare your product for a successful launch with the right positioning, messaging, pricing, channels, and enablement strategy — ensuring faster adoption, stronger market fit, and scalable growth from day one.", value: "Clear market positioning • Target audience definition • Launch strategy planning • Marketing campaign alignment • Pricing and packaging • Data-driven performance tracking" }
                         ]
                     }
                 ],
@@ -277,14 +331,12 @@
                     let center = { x: 0, y: 0 };
                     let globalAngle = 0;
 
-                    // Particle class defined at top of scope to prevent ReferenceError
                     class HaloParticle {
                         constructor(center) {
                             this.init(center);
                         }
                         init(center) {
                             this.center = center;
-                            // Fluid radius based on screen size
                             const scale = Math.min(window.innerWidth, 1600) / 1600;
                             this.baseRadius = (180 + Math.random() * 150) * (scale + 0.5); 
                             this.angle = Math.random() * Math.PI * 2;
@@ -337,7 +389,6 @@
                         center.x = canvas.width / 2;
                         center.y = canvas.height / 2;
                         particles = [];
-                        // Responsive particle count
                         let count = window.innerWidth < 768 ? 400 : 800; 
                         for (let i = 0; i < count; i++) {
                             particles.push(new HaloParticle(center));
@@ -420,32 +471,66 @@
                     const x = clientX - rect.left;
                     const y = clientY - rect.top;
                     
-                    // Higher sensitivity and snappier tracking
                     const rotateX = (y - rect.height / 2) / 6; 
                     const rotateY = -(x - rect.width / 2) / 6;
                     
-                    // Reduced transition speed for a slightly smoother track (was 120ms)
-                    el.style.transitionDuration = '250ms';
+                    // REFINED: Responsiveness maintained at 300ms tracking speed with smooth butter curve
+                    el.style.transitionDuration = '300ms';
+                    el.style.transitionTimingFunction = 'cubic-bezier(0.23, 1, 0.32, 1)';
                     el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.06, 1.06, 1.06)`;
                     
-                    // On touch, manually add the tilt-active class to mimic hover effects
                     if (isTouch) el.classList.add('active-tilt');
                 },
 
                 resetTilt(e) {
                     const el = e.currentTarget;
                     el.classList.remove('active-tilt');
-                    // Restore smooth return transition
-                    el.style.transitionDuration = '600ms';
+                    // REFINED: Much smoother return (1200ms)
+                    el.style.transitionDuration = '1200ms';
+                    el.style.transitionTimingFunction = 'cubic-bezier(0.23, 1, 0.32, 1)';
                     el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
                 },
 
-                handleServiceScroll(e) {
+                handleVerticalScroll() {
                     if (!this.isMobile) return;
-                    const container = e.currentTarget;
-                    const cardWidth = container.querySelector('.tilt-card').offsetWidth + 24; // gap
-                    const scrollLeft = container.scrollLeft;
-                    this.activeCategoryMobile = Math.round(scrollLeft / cardWidth);
+                    
+                    const viewportCenter = window.innerHeight / 2;
+
+                    // Detect centered home category card
+                    if (this.currentView === 'home') {
+                        const categoryCards = document.querySelectorAll('.home-category-card');
+                        let closestCatIndex = -1;
+                        let minCatDist = Infinity;
+
+                        categoryCards.forEach((card, index) => {
+                            const rect = card.getBoundingClientRect();
+                            const cardCenter = rect.top + rect.height / 2;
+                            const dist = Math.abs(viewportCenter - cardCenter);
+                            if (dist < minCatDist) {
+                                minCatDist = dist;
+                                closestCatIndex = index;
+                            }
+                        });
+                        this.activeCategoryMobile = closestCatIndex;
+                    }
+
+                    // Detect centered detailed path card
+                    if (this.currentView === 'detail') {
+                        const serviceCards = document.querySelectorAll('.detail-service-card');
+                        let closestSrvIndex = -1;
+                        let minSrvDist = Infinity;
+
+                        serviceCards.forEach((card, index) => {
+                            const rect = card.getBoundingClientRect();
+                            const cardCenter = rect.top + rect.height / 2;
+                            const dist = Math.abs(viewportCenter - cardCenter);
+                            if (dist < minSrvDist) {
+                                minSrvDist = dist;
+                                closestSrvIndex = index;
+                            }
+                        });
+                        this.activeServiceMobile = closestSrvIndex;
+                    }
                 },
 
                 scrollTo(id) {
@@ -473,6 +558,7 @@
                 openCategory(cat) {
                     this.selectedCategory = cat;
                     this.currentView = 'detail';
+                    this.activeServiceMobile = -1;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
 
@@ -499,7 +585,7 @@
     </script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-<body class="bg-[#fdfcf8] text-gray-900 font-sans selection:bg-pos-primary selection:text-white overflow-x-hidden" x-data="appState">
+<body class="bg-[#fdfcf8] text-gray-900 font-sans selection:bg-pos-primary selection:text-white overflow-x-hidden" x-data="appState" @scroll.window="handleVerticalScroll()">
 
     <!-- Premium Navigation -->
     <nav class="fixed w-full z-[120] h-20 flex items-center transition-all duration-500 glass border-b border-pos-beige/20 px-4 md:px-12">
@@ -526,14 +612,13 @@
                 </div>
             </div>
 
-            <!-- Hamburger Button -->
             <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-pos-primary text-2xl active:scale-90 transition-transform p-2 focus:outline-none">
                 <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars-staggered'"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Dropdown Menu - Top-Down Dropdown Implementation -->
+    <!-- Mobile Dropdown Menu -->
     <div x-show="mobileMenu" x-cloak 
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 -translate-y-4"
@@ -565,12 +650,9 @@
         <div x-show="currentView === 'home'" x-cloak x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
             <!-- Hero Section -->
             <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-[#fdfcf8]">
-                <!-- Neural connectivity background animation -->
                 <canvas id="neural-canvas" class="neural-bg opacity-100"></canvas>
                 
-                <!-- Header Text & Integrated Buttons Container -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 text-center">
-                    <!-- Text container remains fixed/static -->
                     <div id="hero-content" class="scroll-reveal active space-y-8 sm:space-y-10">
                         <div class="section-tag bg-pos-primary/5 border border-pos-primary/10 px-4 sm:px-6 py-2 rounded-full animate-pulse-slow inline-flex">
                             <span class="w-2 h-2 rounded-full bg-pos-primary mr-3"></span>
@@ -578,7 +660,6 @@
                         </div>
                         
                         <div class="flex items-center justify-center select-none">
-                            <!-- Refined h1 font sizing and line spacing for mobile responsiveness -->
                             <h1 class="text-5xl sm:text-7xl lg:text-[10rem] font-black text-gray-900 leading-[0.95] sm:leading-[0.85] tracking-tighter uppercase text-center w-full py-6 sm:py-4 animate-fade-in-up drop-shadow-2xl">
                                 Impact <br> <span class="faded-text-gradient">Engineered.</span>
                             </h1>
@@ -588,7 +669,6 @@
                             Empowering enterprise growth through AI-native solutions and hyper-scalable architectures. We bridge the gap between human vision and technical reality.
                         </p>
 
-                        <!-- Buttons Integrated into Hero itself -->
                         <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 pt-8 sm:pt-10 opacity-0 animate-fade-in-up [animation-delay:600ms]">
                             <div class="magnetic-wrap w-full sm:w-auto">
                                 <button @click="scrollTo('services')" class="w-full sm:w-auto faded-gradient-bg text-white px-8 sm:px-12 py-5 sm:py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] sm:text-xs shadow-2xl shadow-pos-primary/40 flex items-center justify-center group transition-all duration-300 active:scale-95">
@@ -607,9 +687,7 @@
             <!-- About Section -->
             <section id="about" class="py-24 sm:py-32 bg-white overflow-hidden">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-                    <!-- Image card now first in order on mobile -->
                     <div class="relative scroll-reveal">
-                        <!-- image wrapper -->
                         <div class="w-full aspect-square rounded-[3rem] sm:rounded-[5rem] faded-gradient-bg relative overflow-hidden shadow-2xl p-6 sm:p-12 group">
                             <div class="absolute inset-0 bg-white/5 mix-blend-overlay"></div>
                             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover rounded-[2rem] sm:rounded-[3rem] shadow-inner transition-transform duration-1000 group-hover:scale-110">
@@ -619,7 +697,6 @@
                             <p class="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Years of cross-industry engineering mastery.</p>
                         </div>
                     </div>
-                    <!-- Information text now second in order on mobile -->
                     <div class="space-y-8 sm:space-y-10 scroll-reveal">
                         <div class="section-tag">About us</div>
                         <h3 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900">Engineering <br> <span class="faded-text-gradient uppercase">Excellence.</span></h3>
@@ -642,7 +719,7 @@
                 </div>
             </section>
 
-            <!-- What we Offer Overview -->
+            <!-- Services Section -->
             <section id="services" class="py-24 sm:py-32 bg-[#fdfcf8] relative">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                     <div class="max-w-4xl mx-auto text-center mb-16 sm:mb-24 space-y-6 scroll-reveal">
@@ -653,45 +730,30 @@
                         </p>
                     </div>
 
-                    <!-- RE-ENGINEERED: Swipe & Blur Mobile Carousel Experience (Mobile Only) -->
-                    <!-- Standard Grid Experience (Desktop Only) -->
-                    <div class="flex lg:grid lg:grid-cols-5 gap-6 sm:gap-4 md:gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar pb-12 sm:pb-0 scroll-reveal px-[7.5vw] lg:px-0"
-                         @scroll="handleServiceScroll($event)">
-                        
+                    <!-- RE-ENGINEERED: Vertical list on mobile, grid on desktop. -->
+                    <!-- RESTORED: Original Design for desktop. Animated border REMOVED for categories -->
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-6 scroll-reveal px-4 lg:px-0">
                         <template x-for="(categoryItem, idx) in categories" :key="categoryItem.id">
                             <div @click="openCategory(categoryItem)" 
                                  @mousemove="handleTilt($event)" 
                                  @mouseleave="resetTilt($event)"
                                  @touchstart="handleTilt($event)"
                                  @touchend="resetTilt($event)"
-                                 @touchcancel="resetTilt($event)"
-                                 class="tilt-card stagger-item group cursor-pointer p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] border border-pos-beige/20 bg-white h-[400px] sm:h-[450px] flex flex-col justify-between flex-shrink-0 w-[85vw] sm:w-[320px] lg:w-auto snap-center"
-                                 :class="{ 
-                                    'blur-[1.5px] opacity-60 scale-90': isMobile && activeCategoryMobile !== idx,
-                                    'blur-0 opacity-100 scale-100': isMobile && activeCategoryMobile === idx,
-                                    'hover:scale-105 active:scale-95': !isMobile
-                                 }">
-                                <div class="space-y-6 sm:space-y-8">
+                                 class="tilt-card category-card stagger-item group cursor-pointer p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] border border-pos-beige/20 bg-white h-[400px] sm:h-[450px] flex flex-col justify-between w-full hover:scale-[1.02] active:scale-95 transition-all duration-700 home-category-card"
+                                 :class="{ 'active-tilt': isMobile && activeCategoryMobile === idx }">
+                                <div class="relative z-10 space-y-6 sm:space-y-8">
                                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pos-primary/5 group-hover:bg-white/10 flex items-center justify-center text-pos-primary group-hover:text-white transition-all duration-500 text-xl sm:text-2xl">
                                         <i :class="categoryItem.icon"></i>
                                     </div>
                                     <h4 class="text-xl sm:text-2xl font-black leading-tight text-gray-900 group-hover:text-white tracking-tighter" x-text="categoryItem.name"></h4>
                                 </div>
-                                <div class="space-y-4 sm:space-y-6">
+                                <div class="relative z-10 space-y-4 sm:space-y-6">
                                     <p class="text-xs sm:text-sm font-medium text-gray-500 group-hover:text-white/90" x-text="categoryItem.shortDesc"></p>
                                     <div class="flex items-center text-pos-primary group-hover:text-white font-black text-[9px] sm:text-[10px] uppercase tracking-widest transition-colors duration-300">
                                         Explore Details <i class="fas fa-chevron-right ml-2 group-hover:translate-x-3 transition-transform duration-300"></i>
                                     </div>
                                 </div>
                             </div>
-                        </template>
-                    </div>
-
-                    <!-- Mobile Carousel Dots -->
-                    <div class="flex justify-center space-x-2 mt-8 lg:hidden">
-                        <template x-for="(catDot, dotIdx) in categories" :key="catDot.id">
-                            <div class="h-1.5 rounded-full transition-all duration-500"
-                                 :class="activeCategoryMobile === dotIdx ? 'w-8 bg-pos-primary' : 'w-2 bg-pos-primary/20'"></div>
                         </template>
                     </div>
                 </div>
@@ -748,9 +810,6 @@
                                             </div>
                                             <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Zenith Banking</h4>
                                             <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Scaling secure, high-concurrency cloud cores for global financial operations.</p>
-                                            <div class="pt-4 sm:pt-6">
-                                                <button class="faded-gradient-bg text-white px-6 sm:px-8 py-3 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[8px] sm:text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -768,9 +827,6 @@
                                             </div>
                                             <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Supply Sync</h4>
                                             <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Real-time predictive synchronization for distributed retail inventory systems.</p>
-                                            <div class="pt-4 sm:pt-6">
-                                                <button class="faded-gradient-bg text-white px-6 sm:px-8 py-3 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[8px] sm:text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -788,9 +844,6 @@
                                             </div>
                                             <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Cloud Architect</h4>
                                             <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Enterprise modernization of legacy infrastructure for agile digital delivery.</p>
-                                            <div class="pt-4 sm:pt-6">
-                                                <button class="faded-gradient-bg text-white px-8 py-3 rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-[8px] sm:text-[9px] hover:scale-110 active:scale-95 transition-all">Case Study</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -807,7 +860,7 @@
                 </div>
             </section>
 
-            <!-- Minimal Professional Enquiry Section -->
+            <!-- Finalised Inquiry Section -->
             <section id="contact" class="py-24 sm:py-32 bg-[#fdfcf8]">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6">
                     <div class="bg-white border border-pos-primary/5 rounded-[2.5rem] sm:rounded-[4rem] shadow-sm scroll-reveal p-6 sm:p-12 md:p-20 overflow-hidden relative">
@@ -894,7 +947,8 @@
         </div>
 
         <!-- DETAIL VIEW -->
-        <div x-show="currentView === 'detail'" x-cloak class="min-h-screen pt-32 pb-24" :style="'background: linear-gradient(135deg, #fdfcf8 0%, #e9e0c2 100%);'">
+        <div x-show="currentView === 'detail'" x-cloak class="min-h-screen pt-32 pb-24" :style="'background: linear-gradient(135deg, #fdfcf8 0%, #e9e0c2 100%);'"
+             @scroll.window="handleVerticalScroll()">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
                 <button @click="scrollTo('hero')" class="group mb-12 sm:mb-20 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[9px] sm:text-[10px]">
                     <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-3 transition-transform duration-300"></i> Return to Offerings
@@ -916,6 +970,19 @@
                                     <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> 24/7 Security Governance</li>
                                 </ul>
                             </div>
+
+                            <!-- Our Specialisation Card -->
+                            <div class="p-8 sm:p-10 glass border border-pos-primary/10 rounded-[2rem] sm:rounded-[3rem] shadow-xl bg-white/40">
+                                <h4 class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Our Specialisation</h4>
+                                <ul class="space-y-4 text-xs sm:text-sm font-bold text-gray-600">
+                                    <template x-for="point in (selectedCategory ? [...new Set(selectedCategory.services.flatMap(s => s.value.split('•')).map(v => v.trim()).filter(v => v))].sort(() => 0.5 - Math.random()).slice(0, 5) : [])" :key="point">
+                                        <li class="flex items-center">
+                                            <i class="fas fa-star text-pos-primary mr-4 text-[10px]"></i>
+                                            <span x-text="point"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="lg:col-span-3 space-y-10 scroll-reveal active">
@@ -923,15 +990,16 @@
                         <template x-if="selectedCategory">
                             <div class="space-y-6 sm:space-y-8">
                                 <template x-for="(srv, sIdx) in selectedCategory.services" :key="srv.name">
-                                    <div class="p-8 sm:p-12 bg-white border border-pos-beige/20 rounded-[2rem] sm:rounded-[3.5rem] shadow-lg group hover:shadow-2xl transition-all duration-500 stagger-item active" :style="`transition-delay: ${sIdx * 100}ms`">
-                                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
-                                            <h4 class="text-xl sm:text-2xl md:text-3xl font-bold text-pos-primary tracking-tight uppercase" x-text="srv.name"></h4>
-                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-pos-primary/20 flex items-center justify-center text-pos-primary group-hover:bg-pos-primary group-hover:text-white transition-all duration-300 flex-shrink-0">
-                                                <i class="fas fa-plus"></i>
-                                            </div>
+                                    <!-- RE-ENGINEERED: Only border logic remains for service cards; Gradient and Tilt REMOVED -->
+                                    <div class="p-10 sm:p-14 border border-pos-beige/20 rounded-[2rem] sm:rounded-[3.5rem] shadow-lg group hover:shadow-2xl transition-all duration-700 stagger-item active animated-border-card detail-service-card bg-white" 
+                                         :class="{ 'active-border': isMobile && activeServiceMobile === sIdx }"
+                                         :style="`transition-delay: ${sIdx * 100}ms`">
+                                        <div class="relative z-10 mb-8">
+                                            <h4 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-pos-primary tracking-tight uppercase" x-text="srv.name"></h4>
+                                            <div class="h-1 w-12 bg-pos-primary/20 mt-4 rounded-full"></div>
                                         </div>
-                                        <p class="text-gray-600 font-medium mb-8 sm:mb-10 text-base sm:text-lg leading-relaxed" x-text="srv.details"></p>
-                                        <div class="subtle-gradient-bg p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem]">
+                                        <p class="relative z-10 text-gray-600 font-medium mb-10 text-base sm:text-lg leading-relaxed" x-text="srv.details"></p>
+                                        <div class="relative z-10 subtle-gradient-bg p-8 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem]">
                                             <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-pos-logo-dark mb-6">Enterprise Value</div>
                                             <div class="flex flex-wrap gap-2 sm:gap-3">
                                                 <template x-for="valTag in srv.value.split('•')" :key="valTag">
@@ -998,7 +1066,7 @@
                         <i class="fas fa-sparkles text-[8px]"></i>
                     </div>
                     <div class="p-4 bg-white border border-pos-beige/10 rounded-2xl rounded-tl-none text-[12px] font-medium leading-relaxed shadow-sm text-gray-700">
-                        Hello. I'm the Posi-Engine. Ready to facilitate your digital engineering journey.
+                        Hello. I'm the Posi-Engine. Ready to facilitate your digital engineering journey today.
                     </div>
                 </div>
 
