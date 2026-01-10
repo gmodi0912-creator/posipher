@@ -239,7 +239,7 @@
                     {
                         id: 1,
                         name: "Custom Software Development",
-                        icon: "fas fa-code",
+                        icon: "fa-solid fa-code",
                         shortDesc: "Tailored web platforms and enterprise-grade applications.",
                         longDesc: "Our custom software development services deliver tailored solutions that address your unique business challenges. We combine cutting-edge technology with industry best practices to create robust, scalable applications that drive growth and efficiency.",
                         services: [
@@ -254,7 +254,7 @@
                     {
                         id: 2,
                         name: "Cloud‑Native Architecture & DevOps",
-                        icon: "fas fa-cloud",
+                        icon: "fa-solid fa-cloud",
                         shortDesc: "Modern cloud environments and automated pipelines.",
                         longDesc: "Our cloud migration and management services help businesses leverage the full potential of cloud computing, ensuring secure, scalable, and cost-effective infrastructure.",
                         services: [
@@ -268,7 +268,7 @@
                     {
                         id: 3,
                         name: "CRM & ERP Solutions",
-                        icon: "fas fa-database",
+                        icon: "fa-solid fa-database",
                         shortDesc: "Unified business intelligence and operational management.",
                         longDesc: "Integrate and automate your core business operations across finance, sales, inventory, HR, and supply chain — unifying everything into a single source of truth for real-time visibility, smarter decisions, and seamless enterprise-wide efficiency.",
                         services: [
@@ -281,7 +281,7 @@
                     {
                         id: 4,
                         name: "Testing, Maintenance & IT Support",
-                        icon: "fas fa-check-double",
+                        icon: "fa-solid fa-check-double",
                         shortDesc: "Quality assurance and proactive system maintenance.",
                         longDesc: "Ensure your systems run smoothly and securely through continuous testing, proactive maintenance, and responsive IT support — reducing downtime, improving performance, and keeping your business always-on.",
                         services: [
@@ -293,7 +293,7 @@
                     {
                         id: 5,
                         name: "SaaS Product Development",
-                        icon: "fas fa-microchip",
+                        icon: "fa-solid fa-microchip",
                         shortDesc: "Concept to MVP and scalable multi-tenant platforms.",
                         longDesc: "Design and build scalable, cloud-native SaaS products with seamless user experiences — enabling faster growth, reliable performance, effortless global access and launch subscription-based powerhouses with battle-tested architectures.",
                         services: [
@@ -318,6 +318,7 @@
                         window.addEventListener('resize', () => {
                             this.isMobile = window.innerWidth < 1024;
                         });
+                        this.handleVerticalScroll();
                     });
                 },
 
@@ -491,12 +492,10 @@
                 },
 
                 handleVerticalScroll() {
-                    if (!this.isMobile) return;
-                    
                     const viewportCenter = window.innerHeight / 2;
 
-                    // Detect centered home category card
-                    if (this.currentView === 'home') {
+                    // Detect centered home category card focus (Mobile Only)
+                    if (this.isMobile && this.currentView === 'home') {
                         const categoryCards = document.querySelectorAll('.home-category-card');
                         let closestCatIndex = -1;
                         let minCatDist = Infinity;
@@ -513,7 +512,7 @@
                         this.activeCategoryMobile = closestCatIndex;
                     }
 
-                    // Detect centered detailed path card
+                    // Detect centered detailed path card (Adaptive: Mobile & Desktop)
                     if (this.currentView === 'detail') {
                         const serviceCards = document.querySelectorAll('.detail-service-card');
                         let closestSrvIndex = -1;
@@ -523,9 +522,9 @@
                             const rect = card.getBoundingClientRect();
                             const cardCenter = rect.top + rect.height / 2;
                             const dist = Math.abs(viewportCenter - cardCenter);
-                            if (dist < minCatDist) {
-                                minCatDist = dist;
-                                closestCatIndex = index;
+                            if (dist < minSrvDist) {
+                                minSrvDist = dist;
+                                closestSrvIndex = index;
                             }
                         });
                         this.activeServiceMobile = closestSrvIndex;
@@ -557,8 +556,8 @@
                 openCategory(cat) {
                     this.selectedCategory = cat;
                     this.currentView = 'detail';
-                    this.activeServiceMobile = -1;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                    this.$nextTick(() => { setTimeout(() => this.handleVerticalScroll(), 500); });
                 },
 
                 askQuestion(q) {
@@ -958,7 +957,7 @@
                     </div>
                     <h2 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900" x-text="selectedCategory?.name"></h2>
                     <p class="text-lg sm:text-xl text-gray-600 font-medium leading-relaxed max-w-3xl" x-text="selectedCategory?.longDesc"></p>
-                    <div x-show="selectedCategory?.id === 1" class="pt-12 border-t border-pos-beige/20"><div class="section-tag mb-8 opacity-60">Our Processes</div><div class="max-w-4xl mx-auto px-4 sm:px-6 h-24 flex items-center justify-around sm:justify-between relative overflow-visible"><div class="absolute top-1/2 left-6 right-6 h-px bg-gradient-to-r from-pos-primary/5 via-pos-primary/30 to-pos-primary/5 -translate-y-1/2 overflow-hidden"><div class="absolute top-0 w-32 h-full bg-gradient-to-r from-transparent via-pos-primary to-transparent animate-[flow-p_3s_infinite]"></div></div><template x-for="(step, i) in [{n:'Discovery',d:'Analyzing technical needs and business alignment.'},{n:'Strategy',d:'Architecting the roadmap for scalable delivery.'},{n:'Development',d:'Precision engineering of mission-critical code.'},{n:'Validation',d:'Exhaustive testing for resilient performance.'},{n:'Deployment',d:'Orchestrating a smooth transition to production.'}]" :key="i"><div class="relative z-10 flex flex-col items-center group/node"><div class="absolute -top-12 left-1/2 -translate-x-1/2 w-40 bg-pos-logo-dark text-white text-[7px] font-black p-2 rounded-lg opacity-0 group-hover/node:opacity-100 transition-all duration-300 pointer-events-none text-center shadow-xl z-20"><span x-text="step.d"></span><div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-pos-logo-dark"></div></div><div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-pos-primary/20 flex items-center justify-center shadow-lg group-hover/node:scale-110 group-hover/node:border-pos-logo-dark transition-all duration-500 relative overflow-hidden"><div class="absolute inset-0 bg-pos-primary/5 group-hover:bg-pos-logo-dark/5 transition-colors"></div><span class="text-[8px] sm:text-[9px] font-black text-pos-logo-dark" x-text="'0'+(i+1)"></span></div><div class="absolute -bottom-10 flex flex-col items-center"><span class="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-400 group-hover/node:text-pos-logo-dark transition-colors whitespace-nowrap" x-text="step.n"></span><div class="h-0.5 w-0 bg-pos-primary mt-1 group-hover/node:w-full transition-all duration-500"></div></div></div></template></div></div>
+                    <div x-show="selectedCategory?.id === 1" class="pt-12 border-t border-pos-beige/20"><div class="section-tag mb-8 opacity-60">Our Processes</div><div class="max-w-4xl mx-auto px-4 sm:px-6 h-24 flex items-center justify-around sm:justify-between relative overflow-visible"><div class="absolute top-1/2 left-6 right-6 h-px bg-gradient-to-r from-pos-primary/5 via-pos-primary/30 to-pos-primary/5 -translate-y-1/2 overflow-hidden sm:block"><div class="absolute top-0 w-32 h-full bg-gradient-to-r from-transparent via-pos-primary to-transparent animate-[flow-p_3s_infinite]"></div></div><template x-for="(step, i) in [{n:'Discovery',d:'Analyzing technical needs and business alignment.'},{n:'Strategy',d:'Architecting the roadmap for scalable delivery.'},{n:'Development',d:'Precision engineering of mission-critical code.'},{n:'Validation',d:'Exhaustive testing for resilient performance.'},{n:'Deployment',d:'Orchestrating a smooth transition to production.'}]" :key="i"><div class="relative z-10 flex flex-col items-center group/node"><div class="absolute left-1/2 -translate-x-1/2 w-40 bg-pos-logo-dark text-white text-[7px] font-black p-2 rounded-lg opacity-0 group-hover/node:opacity-100 transition-all duration-300 pointer-events-none text-center shadow-xl z-20" :class="i % 2 === 0 ? '-top-14' : 'top-14'"><span x-text="step.d"></span><div class="absolute left-1/2 -translate-x-1/2 border-4 border-transparent" :class="i % 2 === 0 ? 'top-full border-t-pos-logo-dark' : 'bottom-full border-b-pos-logo-dark'"></div></div><div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-pos-primary/20 flex items-center justify-center shadow-lg group-hover/node:scale-110 group-hover/node:border-pos-logo-dark transition-all duration-500 relative overflow-hidden"><div class="absolute inset-0 bg-pos-primary/5 group-hover:bg-pos-logo-dark/5 transition-colors"></div><span class="text-[8px] sm:text-[9px] font-black text-pos-logo-dark" x-text="'0'+(i+1)"></span></div><div class="absolute flex flex-col items-center" :class="i % 2 === 0 ? '-bottom-10' : '-top-10'"><span class="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-400 group-hover/node:text-pos-logo-dark transition-colors whitespace-nowrap" x-text="step.n"></span><div class="h-0.5 w-0 bg-pos-primary mt-1 group-hover/node:w-full transition-all duration-500"></div></div></div></template></div></div>
                 </div>
                 <div class="grid lg:grid-cols-5 gap-16 lg:gap-24 relative">
                     <div class="lg:col-span-2 relative">
@@ -989,7 +988,7 @@
                             <div class="space-y-6 sm:space-y-8">
                                 <template x-for="(srv, sIdx) in selectedCategory.services" :key="srv.name">
                                     <div class="p-10 sm:p-14 border border-pos-beige/20 rounded-[2rem] sm:rounded-[3.5rem] shadow-lg group hover:shadow-2xl transition-all duration-700 stagger-item active animated-border-card detail-service-card bg-white" 
-                                         :class="{ 'active-border': isMobile && activeServiceMobile === sIdx }"
+                                         :class="{ 'active-border': activeServiceMobile === sIdx }"
                                          :style="`transition-delay: ${sIdx * 100}ms`">
                                         <div class="relative z-10 mb-8">
                                             <h4 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-pos-primary tracking-tight uppercase" x-text="srv.name"></h4>
