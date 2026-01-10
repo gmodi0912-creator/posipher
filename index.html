@@ -218,9 +218,8 @@
         /* REMOVED Gradient override for detail view cards to keep them white */
         /* .animated-border-card.active-tilt::after { background: linear-gradient(...) !important; } */
 
-        @keyframes rotate-border {
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes rotate-border { 100% { transform: rotate(360deg); } }
+        @keyframes shimmer-h { 100% { transform: translateX(100%); } } @keyframes flow-p { 0% { left: 0%; opacity: 0; } 5% { opacity: 1; } 10%, 15% { left: 5%; } 30%, 35% { left: 28%; } 50%, 55% { left: 51%; } 70%, 75% { left: 74%; } 90%, 95% { left: 96%; } 100% { left: 100%; opacity: 0; } } @keyframes step-glow { 0%, 8%, 17%, 100% { background: white; color: #5d3a1a; border-color: rgba(93, 58, 26, 0.1); transform: scale(1); box-shadow: none; } 10%, 15% { background: #5d3a1a; color: white; border-color: #5d3a1a; transform: scale(1.15); box-shadow: 0 10px 40px rgba(93, 58, 26, 0.3); } } @keyframes label-in { 0%, 8%, 17%, 100% { opacity: 0.4; transform: translateY(4px); } 10%, 15% { opacity: 1; transform: translateY(0); } }
     </style>
 
     <script>
@@ -524,9 +523,9 @@
                             const rect = card.getBoundingClientRect();
                             const cardCenter = rect.top + rect.height / 2;
                             const dist = Math.abs(viewportCenter - cardCenter);
-                            if (dist < minSrvDist) {
-                                minSrvDist = dist;
-                                closestSrvIndex = index;
+                            if (dist < minCatDist) {
+                                minCatDist = dist;
+                                closestCatIndex = index;
                             }
                         });
                         this.activeServiceMobile = closestSrvIndex;
@@ -731,7 +730,7 @@
                     </div>
 
                     <!-- RE-ENGINEERED: Vertical list on mobile, grid on desktop. -->
-                    <!-- RESTORED: Original Design for desktop. Animated border REMOVED for categories -->
+                    <!-- RESTORED: Original Design for desktop. Animated border REMOVED for categories on mobile -->
                     <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-6 scroll-reveal px-4 lg:px-0">
                         <template x-for="(categoryItem, idx) in categories" :key="categoryItem.id">
                             <div @click="openCategory(categoryItem)" 
@@ -953,31 +952,31 @@
                 <button @click="scrollTo('hero')" class="group mb-12 sm:mb-20 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[9px] sm:text-[10px]">
                     <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-3 transition-transform duration-300"></i> Return to Offerings
                 </button>
+                <div class="mb-16 sm:mb-24 space-y-8 scroll-reveal active">
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-[1.5rem] sm:rounded-[2rem] faded-gradient-bg flex items-center justify-center text-white text-3xl sm:text-4xl shadow-2xl animate-float">
+                        <i :class="selectedCategory?.icon"></i>
+                    </div>
+                    <h2 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900" x-text="selectedCategory?.name"></h2>
+                    <p class="text-lg sm:text-xl text-gray-600 font-medium leading-relaxed max-w-3xl" x-text="selectedCategory?.longDesc"></p>
+                    <div x-show="selectedCategory?.id === 1" class="pt-12 border-t border-pos-beige/20"><div class="section-tag mb-8 opacity-60">Our Processes</div><div class="max-w-4xl mx-auto px-4 sm:px-6 h-24 flex items-center justify-around sm:justify-between relative overflow-visible"><div class="absolute top-1/2 left-6 right-6 h-px bg-gradient-to-r from-pos-primary/5 via-pos-primary/30 to-pos-primary/5 -translate-y-1/2 overflow-hidden"><div class="absolute top-0 w-32 h-full bg-gradient-to-r from-transparent via-pos-primary to-transparent animate-[flow-p_3s_infinite]"></div></div><template x-for="(step, i) in [{n:'Discovery',d:'Analyzing technical needs and business alignment.'},{n:'Strategy',d:'Architecting the roadmap for scalable delivery.'},{n:'Development',d:'Precision engineering of mission-critical code.'},{n:'Validation',d:'Exhaustive testing for resilient performance.'},{n:'Deployment',d:'Orchestrating a smooth transition to production.'}]" :key="i"><div class="relative z-10 flex flex-col items-center group/node"><div class="absolute -top-12 left-1/2 -translate-x-1/2 w-40 bg-pos-logo-dark text-white text-[7px] font-black p-2 rounded-lg opacity-0 group-hover/node:opacity-100 transition-all duration-300 pointer-events-none text-center shadow-xl z-20"><span x-text="step.d"></span><div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-pos-logo-dark"></div></div><div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border border-pos-primary/20 flex items-center justify-center shadow-lg group-hover/node:scale-110 group-hover/node:border-pos-logo-dark transition-all duration-500 relative overflow-hidden"><div class="absolute inset-0 bg-pos-primary/5 group-hover:bg-pos-logo-dark/5 transition-colors"></div><span class="text-[8px] sm:text-[9px] font-black text-pos-logo-dark" x-text="'0'+(i+1)"></span></div><div class="absolute -bottom-10 flex flex-col items-center"><span class="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gray-400 group-hover/node:text-pos-logo-dark transition-colors whitespace-nowrap" x-text="step.n"></span><div class="h-0.5 w-0 bg-pos-primary mt-1 group-hover/node:w-full transition-all duration-500"></div></div></div></template></div></div>
+                </div>
                 <div class="grid lg:grid-cols-5 gap-16 lg:gap-24 relative">
                     <div class="lg:col-span-2 relative">
                         <div class="lg:sticky lg:top-32 space-y-8 sm:space-y-12 self-start z-10">
-                            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-[1.5rem] sm:rounded-[2rem] faded-gradient-bg flex items-center justify-center text-white text-3xl sm:text-4xl shadow-2xl animate-float">
-                                <i :class="selectedCategory?.icon"></i>
-                            </div>
-                            <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight uppercase leading-tight break-words text-gray-900" x-text="selectedCategory?.name"></h2>
-                            <p class="text-lg sm:text-xl text-gray-600 font-medium leading-relaxed px-2 lg:px-0" x-text="selectedCategory?.longDesc"></p>
-                            
                             <div class="p-8 sm:p-10 glass border border-pos-primary/10 rounded-[2rem] sm:rounded-[3rem] shadow-xl bg-white/40">
                                 <h4 class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Execution Guarantee</h4>
                                 <ul class="space-y-4 text-xs sm:text-sm font-bold text-gray-600">
-                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> Agile Squad Deployment</li>
-                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> End-to-End Scalability Audit</li>
-                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-primary mr-4"></i> 24/7 Security Governance</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> Agile Squad Deployment</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> End-to-End Scalability Audit</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> 24/7 Security Governance</li>
                                 </ul>
                             </div>
-
-                            <!-- Our Specialisation Card -->
                             <div class="p-8 sm:p-10 glass border border-pos-primary/10 rounded-[2rem] sm:rounded-[3rem] shadow-xl bg-white/40">
                                 <h4 class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Our Specialisation</h4>
                                 <ul class="space-y-4 text-xs sm:text-sm font-bold text-gray-600">
                                     <template x-for="point in (selectedCategory ? [...new Set(selectedCategory.services.flatMap(s => s.value.split('•')).map(v => v.trim()).filter(v => v))].sort(() => 0.5 - Math.random()).slice(0, 5) : [])" :key="point">
                                         <li class="flex items-center">
-                                            <i class="fas fa-star text-pos-primary mr-4 text-[10px]"></i>
+                                            <i class="fas fa-star text-pos-logo-dark mr-4 text-[10px]"></i>
                                             <span x-text="point"></span>
                                         </li>
                                     </template>
@@ -986,11 +985,9 @@
                         </div>
                     </div>
                     <div class="lg:col-span-3 space-y-10 scroll-reveal active">
-                        <div class="section-tag mb-4">Detailed Path</div>
                         <template x-if="selectedCategory">
                             <div class="space-y-6 sm:space-y-8">
                                 <template x-for="(srv, sIdx) in selectedCategory.services" :key="srv.name">
-                                    <!-- RE-ENGINEERED: Only border logic remains for service cards; Gradient and Tilt REMOVED -->
                                     <div class="p-10 sm:p-14 border border-pos-beige/20 rounded-[2rem] sm:rounded-[3.5rem] shadow-lg group hover:shadow-2xl transition-all duration-700 stagger-item active animated-border-card detail-service-card bg-white" 
                                          :class="{ 'active-border': isMobile && activeServiceMobile === sIdx }"
                                          :style="`transition-delay: ${sIdx * 100}ms`">
@@ -999,11 +996,11 @@
                                             <div class="h-1 w-12 bg-pos-primary/20 mt-4 rounded-full"></div>
                                         </div>
                                         <p class="relative z-10 text-gray-600 font-medium mb-10 text-base sm:text-lg leading-relaxed" x-text="srv.details"></p>
-                                        <div class="relative z-10 subtle-gradient-bg p-8 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem]">
-                                            <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-pos-logo-dark mb-6">Enterprise Value</div>
+                                        <div class="relative z-10 faded-gradient-bg p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-xl shadow-pos-primary/20">
+                                            <div class="text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-white/80 mb-6">Enterprise Value</div>
                                             <div class="flex flex-wrap gap-2 sm:gap-3">
                                                 <template x-for="valTag in srv.value.split('•')" :key="valTag">
-                                                    <span x-show="valTag.trim()" class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase tracking-tighter bg-white text-pos-maroon px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-sm hover:scale-110 transition-transform duration-300" x-text="valTag.trim()"></span>
+                                                    <span x-show="valTag.trim()" class="text-[8px] sm:text-[9px] md:text-[10px] font-black uppercase tracking-tighter bg-white text-pos-logo-dark px-3 sm:px-6 py-1.5 sm:py-3 rounded-full shadow-sm hover:scale-110 transition-transform duration-300" x-text="valTag.trim()"></span>
                                                 </template>
                                             </div>
                                         </div>
