@@ -188,7 +188,7 @@
             pointer-events: none;
         }
 
-        .active-border::before {
+        .active-border::before, .active-tilt::before {
             opacity: 1 !important;
         }
 
@@ -569,7 +569,7 @@
                         this.activeCategoryMobile = closestCatIndex;
                     }
 
-                    if (this.currentView === 'detail') {
+                    if (this.currentView === 'detail' || this.currentView === 'case-reso') {
                         const serviceCards = document.querySelectorAll('.detail-service-card');
                         let closestSrvIndex = -1;
                         let minSrvDist = Infinity;
@@ -580,7 +580,7 @@
                             const dist = Math.abs(viewportCenter - cardCenter);
                             if (dist < minSrvDist) {
                                 minSrvDist = dist;
-                                closestSrvIndex = index;
+                                closestCatIndex = index;
                             }
                         });
                         this.activeServiceMobile = closestSrvIndex;
@@ -638,9 +638,9 @@
 
                 submitForm() {
                     this.formSubmitted = true;
+                    this.formData = { name: '', email: '', phone: '', service: '', message: '' }; // Clear immediately
                     setTimeout(() => {
                         this.formSubmitted = false;
-                        this.formData = { name: '', email: '', phone: '', service: '', message: '' };
                     }, 4000);
                 }
             }));
@@ -823,7 +823,7 @@
             <section id="work" class="py-24 sm:py-32 bg-pos-primary text-white relative overflow-hidden" 
                 x-data="{ 
                     workIndex: 0, 
-                    totalWork: 3,
+                    totalWork: 1, 
                     touchStart: 0,
                     touchEnd: 0,
                     next() { this.workIndex = (this.workIndex + 1) % this.totalWork },
@@ -844,77 +844,60 @@
                             <div class="section-tag text-white/60">Selected Work</div>
                             <h3 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-white">Digital <br> <span class="italic text-pos-logo-dark uppercase">Showcase</span></h3>
                         </div>
-                        
-                        <div class="flex space-x-4">
-                            <button @click="prev()" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all duration-300 text-base sm:text-lg active:scale-90">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <button @click="next()" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all duration-300 text-base sm:text-lg active:scale-90">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
                     </div>
 
                     <div class="relative scroll-reveal">
                         <div class="flex transition-transform duration-[800ms] cubic-bezier(0.23, 1, 0.32, 1)" :style="`transform: translateX(-${workIndex * 100}%)`">
                             
-                            <!-- Project 1 -->
+                            <!-- Case Study: RESO HEALTH (DrinkThis) FRONT HIGHLIGHT -->
                             <div class="w-full flex-shrink-0 px-2 sm:px-4">
-                                <div class="relative overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-gray-900 h-[400px] sm:h-[500px] md:h-[600px] group">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bbda3ef66851?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
-                                    <div class="absolute inset-0 p-6 sm:p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
-                                        <div class="max-w-2xl space-y-3 sm:space-y-4">
+                                <div class="relative overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-gray-900 h-[550px] sm:h-[500px] md:h-[600px] group">
+                                    <!-- Depth Background Blur -->
+                                    <div class="absolute inset-0 opacity-20 blur-3xl transition-transform duration-[4s] group-hover:scale-110">
+                                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" class="w-full h-full object-cover">
+                                    </div>
+
+                                    <div class="absolute inset-0 p-6 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
+                                        <!-- MOBILE HIGHLIGHT VISUALS (Visible on top for mobile) -->
+                                        <div class="md:hidden flex justify-center items-center gap-4 w-full pt-4 opacity-100 z-10">
+                                            <div class="w-24 aspect-[9/19.5] rounded-xl overflow-hidden shadow-2xl border border-white/20 -rotate-3 hover:rotate-0 transition-transform duration-500">
+                                                <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" class="w-full h-full object-cover">
+                                            </div>
+                                            <div class="w-24 aspect-[9/19.5] rounded-xl overflow-hidden shadow-2xl border border-white/20 rotate-3 translate-y-4 hover:rotate-0 hover:translate-y-2 transition-transform duration-500">
+                                                <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470084/WhatsApp_Image_2026-01-12_at_12.46.05_PM_1_vaapvv.jpg" class="w-full h-full object-cover">
+                                            </div>
+                                        </div>
+
+                                        <!-- Text Content (Lowered for mobile using mt-auto and extra padding) -->
+                                        <div class="w-full md:w-1/2 z-10 space-y-4 text-left mt-auto md:mt-0 pb-6 md:pb-0">
                                             <div class="flex items-center space-x-3 mb-2">
                                                 <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
-                                                <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">Fintech Innovation</span>
+                                                <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">HealthTech / Personalized Nutrition</span>
                                             </div>
-                                            <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Zenith Banking</h4>
-                                            <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Scaling secure, high-concurrency cloud cores for global financial operations.</p>
+                                            <!-- Headline Typo as requested -->
+                                            <h4 class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight">RESO HEALTH (DrinkThis)</h4>
+                                            <p class="text-white/60 text-[11px] sm:text-lg font-medium leading-relaxed max-w-lg">Transforming personalized nutrition through a seamless IoT supplement-delivery vending platform.</p>
+                                            <div class="pt-2 md:pt-4">
+                                                <button @click="currentView = 'case-reso'; window.scrollTo({top:0, behavior:'smooth'})" class="bg-white text-pos-logo-dark px-5 py-2.5 md:px-6 md:py-3 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all">
+                                                    Read Case Study
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Highlight Visuals (Right) - Desktop -->
+                                        <div class="hidden md:flex w-1/2 justify-end items-center gap-6 relative pr-8">
+                                            <!-- Vertical Highlight 1 -->
+                                            <div class="w-44 lg:w-52 aspect-[9/19.5] rounded-3xl overflow-hidden shadow-2xl border border-white/20 -rotate-3 hover:rotate-0 transition-transform duration-700">
+                                                <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" class="w-full h-full object-cover">
+                                            </div>
+                                            <!-- Vertical Highlight 2 -->
+                                            <div class="w-44 lg:w-52 aspect-[9/19.5] rounded-3xl overflow-hidden shadow-2xl border border-white/20 rotate-3 translate-y-12 hover:rotate-0 hover:translate-y-6 transition-transform duration-700">
+                                                <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470084/WhatsApp_Image_2026-01-12_at_12.46.05_PM_1_vaapvv.jpg" class="w-full h-full object-cover">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Project 2 -->
-                            <div class="w-full flex-shrink-0 px-2 sm:px-4">
-                                <div class="relative overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-gray-900 h-[400px] sm:h-[500px] md:h-[600px] group">
-                                    <img src="https://images.unsplash.com/photo-1512756783936-3979c5f2e729?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
-                                    <div class="absolute inset-0 p-6 sm:p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
-                                        <div class="max-w-2xl space-y-3 sm:space-y-4">
-                                            <div class="flex items-center space-x-3 mb-2">
-                                                <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
-                                                <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">AI Logistics</span>
-                                            </div>
-                                            <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Supply Sync</h4>
-                                            <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Real-time predictive synchronization for distributed retail inventory systems.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Project 3 -->
-                            <div class="w-full flex-shrink-0 px-2 sm:px-4">
-                                <div class="relative overflow-hidden rounded-[2.5rem] sm:rounded-[3.5rem] bg-gray-900 h-[400px] sm:h-[500px] md:h-[600px] group">
-                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=2400" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-[4s]">
-                                    <div class="absolute inset-0 p-6 sm:p-12 flex flex-col justify-end bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
-                                        <div class="max-w-2xl space-y-3 sm:space-y-4">
-                                            <div class="flex items-center space-x-3 mb-2">
-                                                <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
-                                                <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">SaaS Strategy</span>
-                                            </div>
-                                            <h4 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter uppercase leading-tight">Cloud Architect</h4>
-                                            <p class="text-white/60 text-sm sm:text-lg font-medium leading-relaxed max-w-lg">Enterprise modernization of legacy infrastructure for agile digital delivery.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="absolute top-6 sm:top-8 right-8 sm:right-12 flex space-x-2">
-                            <template x-for="pIdx in [0, 1, 2]" :key="pIdx">
-                                <div class="h-1 rounded-full transition-all duration-500" 
-                                    :class="workIndex === pIdx ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/20'"></div>
-                            </template>
                         </div>
                     </div>
                 </div>
@@ -997,7 +980,7 @@
                                 </form>
 
                                 <div x-show="formSubmitted" x-cloak x-transition:enter="transition duration-500" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" class="mt-8 sm:mt-12 p-6 sm:p-8 subtle-gradient-bg text-pos-logo-dark rounded-[1.5rem] sm:rounded-[2.5rem] text-center font-black uppercase tracking-widest text-[10px] sm:text-xs border border-pos-logo-dark/10">
-                                    <i class="fas fa-check-circle mr-3 text-emerald-600"></i> Transmission Received Successfully.
+                                    <i class="fas fa-check-circle mr-3 text-emerald-600"></i> Request submitted successfully.
                                 </div>
                             </div>
                         </div>
@@ -1006,11 +989,11 @@
             </section>
         </div>
 
-        <!-- DETAIL VIEW -->
+        <!-- DETAIL VIEW (Offerings) -->
         <div x-show="currentView === 'detail'" x-cloak class="min-h-screen pt-32 pb-24" :style="'background: linear-gradient(135deg, #fdfcf8 0%, #e9e0c2 100%);'"
              @scroll.window="handleVerticalScroll()">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <button @click="scrollTo('hero')" class="group mb-12 sm:mb-20 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[9px] sm:text-[10px]">
+                <button @click="scrollTo('services')" class="group mb-12 sm:mb-20 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[9px] sm:text-[10px]">
                     <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-3 transition-transform duration-300"></i> Return to Offerings
                 </button>
                 <div class="mb-16 sm:mb-24 space-y-8 scroll-reveal active">
@@ -1081,6 +1064,219 @@
                                 </template>
                             </div>
                         </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED CASE STUDY: RESO HEALTH (DrinkThis) -->
+        <div x-show="currentView === 'case-reso'" x-cloak class="min-h-screen pt-32 pb-24 bg-[#fdfcf8]" @scroll.window="handleVerticalScroll()">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <!-- Navigation -->
+                <button @click="scrollTo('work')" class="group mb-12 sm:mb-16 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[10px] hover:text-pos-logo-dark transition-colors">
+                    <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-3 transition-transform duration-300"></i> Return to Showcase
+                </button>
+                
+                <!-- Hero Header -->
+                <div class="mb-16 sm:mb-20 space-y-6 scroll-reveal active">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="section-tag">Case Study 01</div>
+                        <div class="h-px w-12 bg-pos-primary/30"></div>
+                        <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">HealthTech Innovation</span>
+                    </div>
+                    <!-- Minimal headline exactly as requested: RESO HEALTH (DrinkThis) -->
+                    <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-tight">RESO HEALTH (DrinkThis)</h2>
+                </div>
+
+                <!-- Structured Layout -->
+                <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
+                    
+                    <!-- LEFT COLUMN: Overview & Visuals with Mobile Carousel -->
+                    <div class="lg:col-span-4 space-y-12">
+                        <!-- Brief Section -->
+                        <div class="p-8 sm:p-10 glass border border-pos-primary/10 rounded-[2.5rem] bg-white shadow-xl relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-110 transition-transform duration-500">
+                                <i class="fas fa-stethoscope text-6xl text-pos-logo-dark"></i>
+                            </div>
+                            <h4 class="text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Engagement Overview</h4>
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="text-[8px] font-black text-gray-400 uppercase block mb-1">Client</label>
+                                    <p class="text-sm font-bold text-pos-logo-dark uppercase">Reso Health Ltd</p>
+                                </div>
+                                <div>
+                                    <label class="text-[8px] font-black text-gray-400 uppercase block mb-1">Region</label>
+                                    <p class="text-sm font-bold text-pos-logo-dark uppercase">Ireland</p>
+                                </div>
+                                <div>
+                                    <label class="text-[8px] font-black text-gray-400 uppercase block mb-1">Key Services</label>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <span class="text-[9px] font-black bg-pos-primary/5 text-pos-primary px-3 py-1 rounded-full uppercase">Product Strategy</span>
+                                        <span class="text-[9px] font-black bg-pos-primary/5 text-pos-primary px-3 py-1 rounded-full uppercase">UI/UX Design</span>
+                                        <span class="text-[9px] font-black bg-pos-primary/5 text-pos-primary px-3 py-1 rounded-full uppercase">Mobile Build</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Visual Showcase with Mobile Carousel and Swipe -->
+                        <div class="space-y-8" x-data="{ imgIndex: 0, total: 2, tStart: 0, tEnd: 0, 
+                            next() { this.imgIndex = (this.imgIndex + 1) % this.total },
+                            prev() { this.imgIndex = (this.imgIndex - 1 + this.total) % this.total },
+                            handleSwipe() {
+                                if (this.tStart - this.tEnd > 50) this.next();
+                                if (this.tEnd - this.tStart > 50) this.prev();
+                            }
+                        }">
+                            <h4 class="text-[10px] font-black uppercase tracking-widest text-pos-primary">Visual Showcase</h4>
+                            
+                            <!-- Mobile Carousel -->
+                            <div class="relative md:hidden overflow-hidden rounded-[2.5rem] bg-white shadow-2xl border border-pos-beige/10"
+                                 @touchstart="tStart = $event.changedTouches[0].screenX"
+                                 @touchend="tEnd = $event.changedTouches[0].screenX; handleSwipe()">
+                                <div class="flex transition-transform duration-700 cubic-bezier(0.23, 1, 0.32, 1)" :style="`transform: translateX(-${imgIndex * 100}%)`">
+                                    <div class="w-full flex-shrink-0">
+                                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" 
+                                             class="w-full h-auto object-cover" alt="Screen 1">
+                                    </div>
+                                    <div class="w-full flex-shrink-0">
+                                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470084/WhatsApp_Image_2026-01-12_at_12.46.05_PM_1_vaapvv.jpg" 
+                                             class="w-full h-auto object-cover" alt="Screen 2">
+                                    </div>
+                                </div>
+                                <!-- Carousel Controls -->
+                                <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-pos-primary z-10 active:scale-90 transition-transform">
+                                    <i class="fas fa-chevron-left text-sm"></i>
+                                </button>
+                                <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 backdrop-blur shadow-lg flex items-center justify-center text-pos-primary z-10 active:scale-90 transition-transform">
+                                    <i class="fas fa-chevron-right text-sm"></i>
+                                </button>
+                                <!-- Pagination -->
+                                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                                    <template x-for="i in total" :key="i">
+                                        <div class="h-1 rounded-full transition-all duration-300" :class="imgIndex === (i-1) ? 'w-6 bg-pos-primary' : 'w-1.5 bg-pos-primary/30'"></div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Desktop View (Original Stack) -->
+                            <div class="hidden md:flex flex-col gap-8">
+                                <div class="relative group overflow-hidden rounded-[2rem] shadow-2xl border border-pos-beige/10 bg-white">
+                                    <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" 
+                                         class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" alt="Screen 1">
+                                </div>
+                                <div class="relative group overflow-hidden rounded-[2rem] shadow-2xl border border-pos-beige/10 bg-white">
+                                    <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470084/WhatsApp_Image_2026-01-12_at_12.46.05_PM_1_vaapvv.jpg" 
+                                         class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" alt="Screen 2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: Story & Impact -->
+                    <div class="lg:col-span-8 space-y-16">
+                        <!-- Problem & Insight -->
+                        <div class="space-y-8">
+                            <div class="flex items-center space-x-4">
+                                <span class="w-12 h-px bg-pos-logo-dark"></span>
+                                <h4 class="text-xl font-black text-pos-logo-dark uppercase tracking-tighter">Challenge & Insight</h4>
+                            </div>
+                            <div class="prose prose-lg prose-stone max-w-none text-gray-600 font-medium leading-relaxed space-y-6">
+                                <p>Reso Health sought to bridge the gap between complex health diagnostics and hardware-driven nutrition delivery. The core challenge lay in creating an intuitive mobile gateway that translated personalized assessment rules into real-world machine dispensing via NFC pairing.</p>
+                                <ul class="list-none space-y-4">
+                                    <li class="flex items-start"><i class="fas fa-arrow-right text-pos-primary mt-1.5 mr-4 text-xs"></i> <span><b>Personalization Complexity:</b> Mapping lifestyle assessment data into precision supplement plans via a custom rules-engine.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-arrow-right text-pos-primary mt-1.5 mr-4 text-xs"></i> <span><b>Secure IoT Pairing:</b> Managing time-bound machine sessions tied to specific orders using iOS/Android NFC protocols.</span></li>
+                                    <li class="flex items-start"><i class="fas fa-arrow-right text-pos-primary mt-1.5 mr-4 text-xs"></i> <span><b>Trust-First UX:</b> Maintaining healthcare-grade clarity and accessible design to reduce user anxiety during hardware interaction.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Solutions -->
+                        <div class="space-y-10">
+                            <div class="flex items-center space-x-4">
+                                <span class="w-12 h-px bg-pos-logo-dark"></span>
+                                <h4 class="text-xl font-black text-pos-logo-dark uppercase tracking-tighter">Engineering the Solution</h4>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="group p-8 bg-white border border-pos-beige/20 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                                    <div class="w-12 h-12 rounded-2xl bg-pos-primary/5 flex items-center justify-center text-pos-primary mb-6 group-hover:bg-pos-primary group-hover:text-white transition-colors">
+                                        <i class="fas fa-fingerprint"></i>
+                                    </div>
+                                    <h5 class="text-lg font-black text-pos-logo-dark uppercase mb-4 tracking-tight">Biometric Onboarding</h5>
+                                    <p class="text-sm text-gray-500 font-medium leading-relaxed">Secure, consent-driven user profiling designed to simplify personalized nutritional assessments.</p>
+                                </div>
+                                <div class="group p-8 bg-white border border-pos-beige/20 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                                    <div class="w-12 h-12 rounded-2xl bg-pos-primary/5 flex items-center justify-center text-pos-primary mb-6 group-hover:bg-pos-primary group-hover:text-white transition-colors">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <h5 class="text-lg font-black text-pos-logo-dark uppercase mb-4 tracking-tight">NFC Session Binding</h5>
+                                    <p class="text-sm text-gray-500 font-medium leading-relaxed">Robust hardware-handshake that initiates a 60-second secure dispense window, preventing unauthorized machine access.</p>
+                                </div>
+                                <div class="group p-8 bg-white border border-pos-beige/20 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                                    <div class="w-12 h-12 rounded-2xl bg-pos-primary/5 flex items-center justify-center text-pos-primary mb-6 group-hover:bg-pos-primary group-hover:text-white transition-colors">
+                                        <i class="fas fa-sync"></i>
+                                    </div>
+                                    <h5 class="text-lg font-black text-pos-logo-dark uppercase mb-4 tracking-tight">Real-Time IoT Logic</h5>
+                                    <p class="text-sm text-gray-500 font-medium leading-relaxed">Live dispense tracking system that monitors machine state (Started → Dispensing → Completed) with fail-safe error handling.</p>
+                                </div>
+                                <div class="group p-8 bg-white border border-pos-beige/20 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                                    <div class="w-12 h-12 rounded-2xl bg-pos-primary/5 flex items-center justify-center text-pos-primary mb-6 group-hover:bg-pos-primary group-hover:text-white transition-colors">
+                                        <i class="fas fa-shield-check"></i>
+                                    </div>
+                                    <h5 class="text-lg font-black text-pos-logo-dark uppercase mb-4 tracking-tight">Operational Governance</h5>
+                                    <p class="text-sm text-gray-500 font-medium leading-relaxed">App-level control flags for maintenance windows and mandatory version gating, ensuring zero-downtime safety.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Stack (Moved here for desktop) -->
+                        <div class="space-y-10">
+                            <div class="flex items-center space-x-4">
+                                <span class="w-12 h-px bg-pos-logo-dark"></span>
+                                <h4 class="text-xl font-black text-pos-logo-dark uppercase tracking-tighter">The Technical Stack</h4>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                    <i class="fab fa-react text-3xl text-pos-primary mb-3"></i>
+                                    <span class="text-[10px] font-black uppercase text-gray-500">React Native</span>
+                                </div>
+                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                    <i class="fab fa-node-js text-3xl text-pos-primary mb-3"></i>
+                                    <span class="text-[10px] font-black uppercase text-gray-500">Fastify API</span>
+                                </div>
+                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                    <i class="fas fa-database text-3xl text-pos-primary mb-3"></i>
+                                    <span class="text-[10px] font-black uppercase text-gray-500">Supabase</span>
+                                </div>
+                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                    <i class="fab fa-microsoft text-3xl text-pos-primary mb-3"></i>
+                                    <span class="text-[10px] font-black uppercase text-gray-500">Azure Ops</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Impact -->
+                        <div class="faded-gradient-bg p-10 sm:p-14 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+                            <div class="absolute bottom-0 right-0 p-8 opacity-10">
+                                <i class="fas fa-chart-line text-[10rem]"></i>
+                            </div>
+                            <div class="relative z-10 space-y-8">
+                                <h4 class="text-2xl font-black uppercase tracking-tighter">Impact Engineered</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                                    <div class="space-y-2">
+                                        <div class="text-4xl font-black italic">40+</div>
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-white/70">Validated High-Fi Screens</p>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="text-4xl font-black italic">4 Weeks</div>
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-white/70">UI/UX Delivery Timeline</p>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <p class="text-sm sm:text-lg font-bold leading-relaxed">Reso Health successfully converted complex personalization logic into a guided consumer journey, securing a scalable foundation for global product expansion with zero misuse risks through isolated session pairing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1384,17 +1580,17 @@
                 <div class="space-y-6 sm:space-y-8">
                     <h4 class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] text-pos-logo-dark">Contact Hub</h4>
                     <div class="space-y-6">
-                        <a href="mailto:contact@posipher.com" class="flex items-center space-x-4 group">
+                        <a href="mailto:contact@posipher.com" class="flex items-center space-x-4 group text-gray-600 hover:text-pos-primary transition-colors">
                             <div class="w-10 h-10 rounded-xl bg-pos-primary/5 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-paper-plane text-xs"></i>
                             </div>
-                            <span class="text-sm font-bold text-gray-600 group-hover:text-pos-logo-dark break-all sm:break-normal">contact@posipher.com</span>
+                            <span class="text-sm font-bold break-all sm:break-normal">contact@posipher.com</span>
                         </a>
-                        <a href="tel:+917558319650" class="flex items-center space-x-4 group">
+                        <a href="tel:+917558319650" class="flex items-center space-x-4 group text-gray-600 hover:text-pos-primary transition-colors">
                             <div class="w-10 h-10 rounded-xl bg-pos-primary/5 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-phone text-xs"></i>
                             </div>
-                            <span class="text-sm font-bold text-gray-600 group-hover:text-pos-logo-dark">+91 7558319650</span>
+                            <span class="text-sm font-bold">+91 7558319650</span>
                         </a>
                     </div>
                 </div>
