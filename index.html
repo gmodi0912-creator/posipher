@@ -19,6 +19,9 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    screens: {
+                        'xs': '375px',
+                    },
                     colors: {
                         'pos-sand': '#e9e0c2',
                         'pos-beige': '#ddb497',
@@ -149,6 +152,8 @@
             background: linear-gradient(to right, #5d3a1a 0%, #bc8762 50%, #5d3a1a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            padding-bottom: 0.1em;
+            margin-bottom: -0.1em;
         }
 
         .subtle-gradient-bg {
@@ -411,8 +416,7 @@
                         }
                         update(mouse, globalAngle) {
                             this.angle += this.orbitSpeed;
-                            this.pulseTime += this.pulseSpeed;
-                            let breathing = Math.sin(this.pulseTime) * 12;
+                            this.pulseTime += this.pulseSpeed;let breathing = Math.sin(this.pulseTime) * 12;
                             let currentRadius = this.baseRadius + breathing;
                             let tx = this.center.x + Math.cos(this.angle + globalAngle) * currentRadius;
                             let ty = this.center.y + Math.sin(this.angle + globalAngle) * currentRadius;
@@ -811,27 +815,27 @@
                         <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-pos-logo-dark/[0.03] text-[8rem] sm:text-[12rem] font-black select-none pointer-events-none tracking-tighter">STRATEGY</div>
                         <h3 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none text-gray-900 relative z-10">
                             <span class="text-xl sm:text-3xl font-light italic lowercase text-pos-clay opacity-80 block mb-4 tracking-normal">our</span>
-                            Mission & <span class="faded-text-gradient uppercase">Vision</span>
+                            <span class="uppercase">MISSION</span> & <span class="faded-text-gradient uppercase">VISION</span>
                         </h3>
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-0 items-stretch rounded-[4rem] overflow-hidden shadow-2xl border border-pos-beige/10">
                         <!-- Left Block: Mission (Light Architectural) -->
-                        <div class="group relative flex flex-col justify-center p-12 sm:p-20 bg-white transition-all duration-1000 hover:z-20">
+                        <div class="group relative flex flex-col justify-center p-8 xs:p-10 sm:p-20 bg-white transition-all duration-1000 hover:z-20">
                             <div class="absolute inset-0 bg-gradient-to-br from-pos-sand/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                             
                             <div class="relative z-10 space-y-10">
-                                <div class="inline-flex items-center space-x-6">
-                                    <div class="w-16 h-16 rounded-2xl bg-pos-primary/10 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-500">
-                                        <i class="fa-solid fa-compass-drafting text-2xl"></i>
+                                <div class="inline-flex items-center space-x-4 sm:space-x-6">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pos-primary/10 flex items-center justify-center text-pos-primary group-hover:scale-110 transition-transform duration-500">
+                                        <i class="fa-solid fa-compass-drafting text-xl sm:text-2xl"></i>
                                     </div>
-                                    <div class="h-px w-16 bg-pos-primary/20"></div>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-pos-clay">Execution</span>
+                                    <div class="h-px w-8 xs:w-12 sm:w-16 bg-pos-primary/20"></div>
+                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.4em] text-pos-clay">Execution</span>
                                 </div>
                                 
                                 <div class="space-y-6">
-                                    <h4 class="text-3xl sm:text-4xl font-black text-pos-logo-dark leading-tight tracking-tight">
-                                        Engineering <span class="faded-text-gradient italic">lasting value</span> through insight.
+                                    <h4 class="text-xl xs:text-[22px] sm:text-[30px] font-black text-pos-logo-dark leading-tight tracking-tight py-2 overflow-visible">
+                                        Engineering <span class="faded-text-gradient inline-block pb-1">lasting value</span> through insight.
                                     </h4>
                                     <p class="text-gray-500 font-medium text-lg sm:text-xl leading-relaxed max-w-md">
                                         To create high-quality, future-ready software and digital products that unite creativity, technology, and insight to deliver lasting value for businesses.
@@ -845,7 +849,7 @@
                         </div>
 
                         <!-- Right Block: Vision (Dark Gradient Depth) -->
-                        <div class="group relative flex flex-col justify-center p-12 sm:p-20 faded-gradient-bg text-white transition-all duration-1000 hover:z-20">
+                        <div class="group relative flex flex-col justify-center p-8 xs:p-10 sm:p-20 faded-gradient-bg text-white transition-all duration-1000 hover:z-20">
                             <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                             <!-- Background Abstract Layer -->
                             <div class="absolute right-0 bottom-0 p-10 opacity-5 group-hover:scale-150 transition-transform duration-1000 pointer-events-none">
@@ -853,17 +857,17 @@
                             </div>
 
                             <div class="relative z-10 space-y-10">
-                                <div class="inline-flex items-center space-x-6">
-                                    <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-pos-sand group-hover:rotate-12 transition-transform duration-500">
-                                        <i class="fa-solid fa-infinity text-2xl"></i>
+                                <div class="inline-flex items-center space-x-4 sm:space-x-6">
+                                    <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-pos-sand group-hover:rotate-12 transition-transform duration-500">
+                                        <i class="fa-solid fa-infinity text-xl sm:text-2xl"></i>
                                     </div>
-                                    <div class="h-px w-16 bg-white/20"></div>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-pos-sand/60">Destination</span>
+                                    <div class="h-px w-8 xs:w-12 sm:w-16 bg-white/20"></div>
+                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.4em] text-pos-sand/60">Destination</span>
                                 </div>
                                 
                                 <div class="space-y-6">
-                                    <h4 class="text-3xl sm:text-4xl font-black leading-tight tracking-tight">
-                                        Defining the <span class="italic text-pos-sand">next standard</span> of business growth.
+                                    <h4 class="text-xl xs:text-[22px] sm:text-[30px] font-black leading-tight tracking-tight py-2 overflow-visible">
+                                        Defining the <span class="text-pos-sand inline-block pb-1">next standard</span> of business growth.
                                     </h4>
                                     <p class="text-white/80 font-medium text-lg sm:text-xl leading-relaxed max-w-md">
                                         To build intelligent, scalable software that accelerates business growth and shapes the digital future.
@@ -898,7 +902,7 @@
                                  @touchstart="handleTilt($event)"
                                  @touchend="resetTilt($event)"
                                  class="tilt-card category-card stagger-item group cursor-pointer p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[3rem] border border-pos-beige/20 bg-white h-[400px] sm:h-[450px] flex flex-col justify-between w-full hover:scale-[1.02] active:scale-95 transition-all duration-700 home-category-card"
-                                 :class="{ 'active-border': isMobile && activeCategoryMobile === idx }">
+                                 :class="{ 'active-tilt active-border': isMobile && activeCategoryMobile === idx }">
                                 <div class="relative z-10 space-y-6 sm:space-y-8">
                                     <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-pos-primary/5 group-hover:bg-white/10 flex items-center justify-center text-pos-primary group-hover:text-white transition-all duration-500 text-xl sm:text-2xl">
                                         <i :class="categoryItem.icon"></i>
@@ -1132,7 +1136,7 @@
                                 <h4 class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-pos-primary mb-6">Execution Guarantee</h4>
                                 <ul class="space-y-4 text-xs sm:text-sm font-bold text-gray-600">
                                     <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> Agile Squad Deployment</li>
-                                    <li class="fas items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> End-to-End Scalability Audit</li>
+                                    <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> End-to-End Scalability Audit</li>
                                     <li class="flex items-center"><i class="fas fa-check-circle text-pos-logo-dark mr-4"></i> 24/7 Security Governance</li>
                                 </ul>
                             </div>
