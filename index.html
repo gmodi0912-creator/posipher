@@ -224,6 +224,7 @@
                 mobileMenu: false,
                 chatOpen: false, 
                 showSuggestions: true,
+                showCookies: true,
                 formSubmitted: false,
                 formData: { name: '', email: '', phone: '', service: '', message: '' },
                 selectedCategory: null,
@@ -824,7 +825,7 @@
                 x-data="{ 
                     workIndex: 0, 
                     totalWork: 1, 
-                    touchStart: 0,
+                    touchStart: 0, 
                     touchEnd: 0,
                     next() { this.workIndex = (this.workIndex + 1) % this.totalWork },
                     prev() { this.workIndex = (this.workIndex - 1 + this.totalWork) % this.totalWork },
@@ -858,7 +859,6 @@
                                     </div>
 
                                     <div class="absolute inset-0 p-6 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-12 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent">
-                                        <!-- MOBILE HIGHLIGHT VISUALS (Visible on top for mobile) -->
                                         <div class="md:hidden flex justify-center items-center gap-4 w-full pt-4 opacity-100 z-10">
                                             <div class="w-24 aspect-[9/19.5] rounded-xl overflow-hidden shadow-2xl border border-white/20 -rotate-3 hover:rotate-0 transition-transform duration-500">
                                                 <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" class="w-full h-full object-cover">
@@ -868,13 +868,11 @@
                                             </div>
                                         </div>
 
-                                        <!-- Text Content (Lowered for mobile using mt-auto and extra padding) -->
                                         <div class="w-full md:w-1/2 z-10 space-y-4 text-left mt-auto md:mt-0 pb-6 md:pb-0">
                                             <div class="flex items-center space-x-3 mb-2">
                                                 <span class="w-2 h-2 rounded-full bg-pos-sand animate-pulse"></span>
                                                 <span class="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.3em] text-pos-sand">HealthTech / Personalized Nutrition</span>
                                             </div>
-                                            <!-- Headline Typo as requested -->
                                             <h4 class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight">RESO HEALTH (DrinkThis)</h4>
                                             <p class="text-white/60 text-[11px] sm:text-lg font-medium leading-relaxed max-w-lg">Transforming personalized nutrition through a seamless IoT supplement-delivery vending platform.</p>
                                             <div class="pt-2 md:pt-4">
@@ -884,13 +882,10 @@
                                             </div>
                                         </div>
 
-                                        <!-- Highlight Visuals (Right) - Desktop -->
                                         <div class="hidden md:flex w-1/2 justify-end items-center gap-6 relative pr-8">
-                                            <!-- Vertical Highlight 1 -->
                                             <div class="w-44 lg:w-52 aspect-[9/19.5] rounded-3xl overflow-hidden shadow-2xl border border-white/20 -rotate-3 hover:rotate-0 transition-transform duration-700">
                                                 <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" class="w-full h-full object-cover">
                                             </div>
-                                            <!-- Vertical Highlight 2 -->
                                             <div class="w-44 lg:w-52 aspect-[9/19.5] rounded-3xl overflow-hidden shadow-2xl border border-white/20 rotate-3 translate-y-12 hover:rotate-0 hover:translate-y-6 transition-transform duration-700">
                                                 <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470084/WhatsApp_Image_2026-01-12_at_12.46.05_PM_1_vaapvv.jpg" class="w-full h-full object-cover">
                                             </div>
@@ -898,6 +893,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Dots -->
+                        <div class="absolute top-6 sm:top-8 right-8 sm:right-12 flex space-x-2">
+                            <template x-for="pIdx in [0]" :key="pIdx">
+                                <div class="h-1 rounded-full transition-all duration-500" 
+                                    :class="workIndex === pIdx ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/20'"></div>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -989,7 +992,7 @@
             </section>
         </div>
 
-        <!-- DETAIL VIEW (Offerings) -->
+        <!-- DETAIL OFFERINGS VIEW -->
         <div x-show="currentView === 'detail'" x-cloak class="min-h-screen pt-32 pb-24" :style="'background: linear-gradient(135deg, #fdfcf8 0%, #e9e0c2 100%);'"
              @scroll.window="handleVerticalScroll()">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -1084,7 +1087,7 @@
                         <div class="h-px w-12 bg-pos-primary/30"></div>
                         <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">HealthTech Innovation</span>
                     </div>
-                    <!-- Minimal headline exactly as requested: RESO HEALTH (DrinkThis) -->
+                    <!-- Minimal headline: RESO HEALTH (DrinkThis) -->
                     <h2 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 leading-tight">RESO HEALTH (DrinkThis)</h2>
                 </div>
 
@@ -1159,7 +1162,7 @@
                                 </div>
                             </div>
 
-                            <!-- Desktop View (Original Stack) -->
+                            <!-- Desktop View -->
                             <div class="hidden md:flex flex-col gap-8">
                                 <div class="relative group overflow-hidden rounded-[2rem] shadow-2xl border border-pos-beige/10 bg-white">
                                     <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1768470109/WhatsApp_Image_2026-01-12_at_12.46.05_PM_rfssmz.jpg" 
@@ -1173,9 +1176,8 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT COLUMN: Story & Impact -->
+                    <!-- RIGHT COLUMN: Content Story -->
                     <div class="lg:col-span-8 space-y-16">
-                        <!-- Problem & Insight -->
                         <div class="space-y-8">
                             <div class="flex items-center space-x-4">
                                 <span class="w-12 h-px bg-pos-logo-dark"></span>
@@ -1191,7 +1193,7 @@
                             </div>
                         </div>
 
-                        <!-- Solutions -->
+                        <!-- Solutions Grid -->
                         <div class="space-y-10">
                             <div class="flex items-center space-x-4">
                                 <span class="w-12 h-px bg-pos-logo-dark"></span>
@@ -1229,28 +1231,32 @@
                             </div>
                         </div>
 
-                        <!-- Technical Stack (Moved here for desktop) -->
-                        <div class="space-y-10">
+                        <!-- Technical Stack Grid (Admin icon added for Operational Governance) -->
+                        <div class="space-y-10 py-10 border-y border-pos-beige/10">
                             <div class="flex items-center space-x-4">
                                 <span class="w-12 h-px bg-pos-logo-dark"></span>
                                 <h4 class="text-xl font-black text-pos-logo-dark uppercase tracking-tighter">The Technical Stack</h4>
                             </div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                                <div class="p-6 border border-pos-beige/20 rounded-3xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-all duration-300">
                                     <i class="fab fa-react text-3xl text-pos-primary mb-3"></i>
                                     <span class="text-[10px] font-black uppercase text-gray-500">React Native</span>
                                 </div>
-                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                <div class="p-6 border border-pos-beige/20 rounded-3xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-all duration-300">
                                     <i class="fab fa-node-js text-3xl text-pos-primary mb-3"></i>
                                     <span class="text-[10px] font-black uppercase text-gray-500">Fastify API</span>
                                 </div>
-                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                <div class="p-6 border border-pos-beige/20 rounded-3xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-all duration-300">
                                     <i class="fas fa-database text-3xl text-pos-primary mb-3"></i>
                                     <span class="text-[10px] font-black uppercase text-gray-500">Supabase</span>
                                 </div>
-                                <div class="p-6 border border-pos-beige/20 rounded-2xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-colors shadow-sm">
+                                <div class="p-6 border border-pos-beige/20 rounded-3xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-all duration-300">
                                     <i class="fab fa-microsoft text-3xl text-pos-primary mb-3"></i>
                                     <span class="text-[10px] font-black uppercase text-gray-500">Azure Ops</span>
+                                </div>
+                                <div class="p-6 border border-pos-beige/20 rounded-3xl bg-white flex flex-col justify-center items-center text-center group hover:border-pos-primary transition-all duration-300">
+                                    <i class="fas fa-user-shield text-3xl text-pos-primary mb-3"></i>
+                                    <span class="text-[10px] font-black uppercase text-gray-500">Governance</span>
                                 </div>
                             </div>
                         </div>
@@ -1424,7 +1430,6 @@
                         </filter>
                     </defs>
                     <g filter="url(#siriBlur)">
-                        <!-- Dynamic Shifting Blobs -->
                         <ellipse cx="50" cy="50" rx="35" ry="35" fill="#bc8762" fill-opacity="0.8">
                             <animate attributeName="cx" values="45;55;45" dur="4s" repeatCount="indefinite" />
                             <animate attributeName="cy" values="55;45;55" dur="5s" repeatCount="indefinite" />
@@ -1440,7 +1445,6 @@
                             <animate attributeName="r" values="12;18;12" dur="3s" repeatCount="indefinite" />
                         </circle>
                     </g>
-                    <!-- Ethereal Shine -->
                     <circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="0.5" stroke-opacity="0.2" />
                 </svg>
             </div>
@@ -1539,6 +1543,29 @@
                 <div class="text-[7px] font-bold text-gray-300 uppercase tracking-[0.4em] flex items-center py-2">
                     <i class="fas fa-lock-alt mr-2 text-pos-primary/30"></i> Neural companion active
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookies Policy Banner -->
+    <div x-show="showCookies" x-cloak 
+         x-transition:enter="transition ease-out duration-700"
+         x-transition:enter-start="opacity-0 translate-y-full"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="fixed bottom-0 left-0 w-full z-[200] glass border-t border-pos-beige/20 bg-white/95 backdrop-blur-2xl py-6 px-4 md:px-12 shadow-[0_-20px_60px_rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
+            <div class="flex items-center space-x-6">
+                <div class="w-12 h-12 rounded-2xl faded-gradient-bg flex items-center justify-center text-white text-xl shadow-lg shadow-pos-primary/20 flex-shrink-0">
+                    <i class="fas fa-cookie-bite"></i>
+                </div>
+                <div class="space-y-1">
+                    <h5 class="text-xs font-black uppercase tracking-widest text-pos-logo-dark">We value your privacy</h5>
+                    <p class="text-[11px] font-medium text-gray-500 leading-relaxed max-w-2xl">We use essential cookies to maintain system integrity and optimize your digital engineering journey. By continuing to browse, you agree to our specialized data policies.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 w-full md:w-auto">
+                <button @click="showCookies = false" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
+                <button @click="showCookies = false" class="flex-1 md:flex-none faded-gradient-bg text-white px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
             </div>
         </div>
     </div>
