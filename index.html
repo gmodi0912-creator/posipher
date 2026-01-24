@@ -69,6 +69,37 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* ===== ENHANCED ORBIT MOTION LOGO ===== */
+        .orbit {
+            animation: orbit 12s ease-in-out infinite;
+        }
+
+        .logo-anim {
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        @keyframes orbit {
+            0%   { transform: translate(0px, 0px); }
+            25%  { transform: translate(8px, -4px); }
+            50%  { transform: translate(0px, -8px); }
+            75%  { transform: translate(-8px, -4px); }
+            100% { transform: translate(0px, 0px); }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(180, 140, 90, 0.45));
+            }
+            50% {
+                filter: drop-shadow(0 0 18px rgba(180, 140, 90, 0.75));
+            }
+        }
+
+        .orbit:hover {
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+
         /* Enhanced Reveal Animations with buttery timing */
         .scroll-reveal {
             opacity: 0;
@@ -680,8 +711,10 @@
     <nav class="fixed w-full z-[120] h-20 flex items-center transition-all duration-500 glass border-b border-pos-beige/20 px-4 md:px-12">
         <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
             <div class="flex items-center cursor-pointer group" @click="scrollTo('hero')">
-                <div class="relative w-11 h-11 overflow-hidden rounded-xl faded-gradient-bg flex items-center justify-center text-white mr-3 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-lg shadow-pos-primary/20">
-                    <span class="font-extrabold text-2xl">P</span>
+                <div class="relative w-14 h-14 flex items-center justify-center mr-3 transition-all duration-500 group-hover:scale-110 orbit">
+                    <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769257914/3a227f44-ecee-473a-852e-0b9c9710f60b_etf4rs.png" 
+                         alt="Posipher Logo" 
+                         class="w-full h-full object-contain logo-anim">
                 </div>
                 <div class="flex flex-col">
                     <span class="text-xl font-black tracking-tight text-pos-primary uppercase leading-none">Posipher</span>
@@ -777,7 +810,7 @@
             </section>
 
             <!-- About Section -->
-            <section id="about" class="py-24 sm:py-32 bg-white overflow-hidden">
+            <section id="about" class="py-16 sm:py-24 bg-white overflow-hidden">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                     <div class="relative scroll-reveal">
                         <div class="w-full aspect-square rounded-[3rem] sm:rounded-[5rem] faded-gradient-bg relative overflow-hidden shadow-2xl p-6 sm:p-12 group">
@@ -808,10 +841,10 @@
             </section>
 
             <!-- Mission & Vision Section - ARCHITECTURAL REDESIGN -->
-            <section id="vision-mission" class="py-24 sm:py-32 bg-[#fdfcf8] relative overflow-hidden">
+            <section id="vision-mission" class="py-16 sm:py-24 bg-[#fdfcf8] relative overflow-hidden">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                     <!-- Elegant Aesthetic Heading -->
-                    <div class="mb-24 sm:mb-32 scroll-reveal text-center relative">
+                    <div class="mb-16 sm:mb-20 scroll-reveal text-center relative">
                         <div class="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-pos-logo-dark/[0.03] text-[8rem] sm:text-[12rem] font-black select-none pointer-events-none tracking-tighter">STRATEGY</div>
                         <h3 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-none text-gray-900 relative z-10">
                             <span class="text-xl sm:text-3xl font-light italic lowercase text-pos-clay opacity-80 block mb-4 tracking-normal">our</span>
@@ -884,9 +917,9 @@
             </section>
 
             <!-- Services Section -->
-            <section id="services" class="py-24 sm:py-32 bg-[#fdfcf8] relative">
+            <section id="services" class="py-16 sm:py-24 bg-[#fdfcf8] relative">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                    <div class="max-w-4xl mx-auto text-center mb-16 sm:mb-24 space-y-6 scroll-reveal">
+                    <div class="max-w-4xl mx-auto text-center mb-12 sm:mb-16 space-y-6 scroll-reveal">
                         <div class="section-tag justify-center">What we Offer</div>
                         <h3 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter uppercase leading-none text-gray-900">Deep-Dive <br> <span class="faded-text-gradient uppercase">Solutions</span></h3>
                         <p class="text-gray-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mx-auto px-4 sm:px-0">
@@ -922,7 +955,7 @@
             </section>
 
             <!-- Portfolio Section -->
-            <section id="work" class="py-24 sm:py-32 bg-pos-primary text-white relative overflow-hidden" 
+            <section id="work" class="py-16 sm:py-24 bg-pos-primary text-white relative overflow-hidden" 
                 x-data="{ 
                     workIndex: 0, 
                     totalWork: 1, 
@@ -1014,7 +1047,7 @@
             </section>
 
             <!-- Finalised Inquiry Section -->
-            <section id="contact" class="py-24 sm:py-32 bg-[#fdfcf8]">
+            <section id="contact" class="py-16 sm:py-24 bg-[#fdfcf8]">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6">
                     <div class="bg-white border border-pos-primary/5 rounded-[2.5rem] sm:rounded-[4rem] shadow-sm scroll-reveal p-6 sm:p-12 md:p-20 overflow-hidden relative">
                         <div class="absolute top-0 right-0 w-64 h-64 subtle-gradient-bg blur-[100px] sm:blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 opacity-30"></div>
@@ -1071,6 +1104,11 @@
                                                             <i class="fas fa-plus text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity"></i>
                                                         </div>
                                                     </template>
+                                                    <div @click="formData.service = 'Others'; open = false" 
+                                                         class="px-6 py-4 text-sm font-bold text-gray-600 hover:bg-pos-logo-dark hover:text-white transition-all cursor-pointer flex justify-between items-center group/item">
+                                                        <span>Others</span>
+                                                        <i class="fas fa-plus text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1283,18 +1321,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- SLEEK Scope Summary Card -->
-                        <div class="relative overflow-hidden group p-8 sm:p-10 rounded-[2.5rem] faded-gradient-bg text-white shadow-2xl transition-all duration-500 hover:scale-[1.02] scroll-reveal active">
-                            <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-700">
-                                <i class="fas fa-mobile-screen-button text-7xl"></i>
-                            </div>
-                            <div class="relative z-10">
-                                <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-2">Scope of delivery</h4>
-                                <p class="text-2xl sm:text-3xl font-black uppercase tracking-tighter leading-none">Mobile App <br>Development</p>
-                                <div class="h-1 w-12 bg-white/20 mt-6 rounded-full group-hover:w-20 transition-all duration-500"></div>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- RIGHT COLUMN: Content Story -->
@@ -1364,8 +1390,8 @@
                             </div>
                         </div>
 
-                        <!-- Impact -->
-                        <div class="faded-gradient-bg p-10 sm:p-14 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+                        <!-- Impact Card -->
+                        <div class="faded-gradient-bg p-10 sm:p-14 rounded-[3rem] text-white shadow-2xl relative overflow-hidden scroll-reveal active">
                             <div class="absolute bottom-0 right-0 p-8 opacity-10">
                                 <i class="fas fa-chart-line text-[10rem]"></i>
                             </div>
@@ -1381,9 +1407,48 @@
                                         <p class="text-[10px] font-black uppercase tracking-widest text-white/70">UI/UX Delivery Timeline</p>
                                     </div>
                                     <div class="sm:col-span-2">
-                                        <p class="text-sm sm:text-lg font-bold leading-relaxed">Reso Health successfully converted complex personalization logic into a guided consumer journey, securing a scalable foundation for global product expansion with zero misuse risks through isolated session pairing.</p>
+                                        <p class="text-sm sm:text-lg font-bold leading-relaxed">High-fidelity UI with a reusable design system to support future SKUs/features</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Scope Card (Corrected Placement) -->
+                        <div class="relative overflow-hidden group p-10 sm:p-14 rounded-[3rem] bg-white border border-pos-beige/20 shadow-xl transition-all duration-500 hover:scale-[1.01] scroll-reveal active">
+                            <div class="absolute top-0 right-0 p-10 opacity-5 group-hover:scale-110 transition-transform duration-700 pointer-events-none">
+                                <i class="fas fa-mobile-screen-button text-[12rem] text-pos-logo-dark"></i>
+                            </div>
+                            <div class="relative z-10 space-y-10">
+                                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                                    <div>
+                                        <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-pos-primary mb-4">Detailed Scope of Delivery</h4>
+                                        <p class="text-3xl sm:text-4xl font-black text-pos-logo-dark uppercase tracking-tighter leading-none">Mobile App & <br>Backend Engineering</p>
+                                    </div>
+                                    <div class="flex items-center space-x-3 bg-pos-primary/10 px-5 py-3 rounded-2xl border border-pos-primary/20">
+                                        <i class="fas fa-clock text-pos-primary text-xs"></i>
+                                        <span class="text-[10px] font-black uppercase tracking-widest text-pos-logo-dark">4 Weeks Delivery</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid md:grid-cols-2 gap-12">
+                                    <div class="space-y-6">
+                                        <h5 class="text-xs font-black uppercase tracking-widest text-pos-clay border-b border-pos-clay/10 pb-2">App Implementation</h5>
+                                        <ul class="space-y-4 text-sm font-bold text-gray-600">
+                                            <li class="flex items-start"><i class="fas fa-check text-pos-primary mt-1 mr-3 text-[10px]"></i> Cross-platform implementation aligned with iOS + Android standards</li>
+                                            <li class="flex items-start"><i class="fas fa-check text-pos-primary mt-1 mr-3 text-[10px]"></i> NFC-driven machine pairing flow (hardware handshake framed as a guided user action)</li>
+                                        </ul>
+                                    </div>
+                                    <div class="space-y-6">
+                                        <h5 class="text-xs font-black uppercase tracking-widest text-pos-clay border-b border-pos-clay/10 pb-2">Backend / APIs</h5>
+                                        <ul class="space-y-4 text-sm font-bold text-gray-600">
+                                            <li class="flex items-start"><i class="fas fa-link text-pos-primary mt-1 mr-3 text-[10px]"></i> API-first approach to support mobile and future admin tools</li>
+                                            <li class="flex items-start"><i class="fas fa-link text-pos-primary mt-1 mr-3 text-[10px]"></i> Structured responses for product/plan data, order creation, and machine session binding</li>
+                                            <li class="flex items-start"><i class="fas fa-link text-pos-primary mt-1 mr-3 text-[10px]"></i> Global configuration endpoint powering maintenance + version gating behavior</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="h-1 w-12 bg-pos-primary/20 mt-6 rounded-full group-hover:w-32 transition-all duration-700"></div>
                             </div>
                         </div>
                     </div>
@@ -1502,6 +1567,64 @@
                         </section>
                         <section class="space-y-4">
                             <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">10. Contact</h3>
+                            <p class="font-bold">Email: contact@posipher.com</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COOKIE POLICY VIEW -->
+        <div x-show="currentView === 'cookie-policy'" x-cloak class="min-h-screen pt-32 pb-24 bg-[#fdfcf8]">
+            <div class="max-w-4xl mx-auto px-6">
+                <button @click="currentView = 'home'; window.scrollTo({top:0, behavior:'smooth'})" class="group mb-12 inline-flex items-center text-pos-primary font-black uppercase tracking-widest text-[10px]">
+                    <i class="fas fa-arrow-left mr-4 group-hover:-translate-x-2 transition-transform"></i> Return to Home
+                </button>
+                <div class="space-y-12">
+                    <div class="space-y-6">
+                        <div class="section-tag">Transparency Framework</div>
+                        <h2 class="text-4xl sm:text-6xl font-black tracking-tighter text-pos-logo-dark uppercase">Cookie Policy</h2>
+                        <p class="text-gray-400 font-bold text-xs uppercase tracking-widest">Posipher Solutions Private Limited</p>
+                    </div>
+                    <div class="prose prose-lg prose-stone max-w-none text-gray-600 space-y-8 font-medium">
+                        <p class="text-lg leading-relaxed">This Cookie Policy explains how Posipher Solutions Private Limited uses cookies and similar technologies on its website.</p>
+                        
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">1. What Are Cookies</h3>
+                            <p>Cookies are small text files stored on your device to improve user experience.</p>
+                        </section>
+                        
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">2. Types of Cookies We Use</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><b>Essential Cookies:</b> Required for website functionality</li>
+                                <li><b>Analytics Cookies:</b> Help us understand website usage</li>
+                                <li><b>Preference Cookies:</b> Remember user settings</li>
+                            </ul>
+                        </section>
+
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">3. Cookie Consent</h3>
+                            <p>Users from the EU and UK are shown a cookie consent banner allowing them to accept, reject, or manage non-essential cookies.</p>
+                        </section>
+
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">4. Managing Cookies</h3>
+                            <p>You can control or delete cookies via your browser settings.</p>
+                        </section>
+
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">5. Third-Party Cookies</h3>
+                            <p>Some cookies may be set by third-party services such as analytics tools.</p>
+                        </section>
+
+                        <section class="space-y-4">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">6. Changes to This Policy</h3>
+                            <p>We may update this Cookie Policy from time to time.</p>
+                        </section>
+
+                        <section class="space-y-4 pt-8 border-t border-gray-100">
+                            <h3 class="text-xl font-black text-pos-logo-dark uppercase tracking-tight">7. Contact</h3>
                             <p class="font-bold">Email: contact@posipher.com</p>
                         </section>
                     </div>
@@ -1667,8 +1790,9 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4 w-full md:w-auto">
-                <button @click="showCookies = false" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
                 <button @click="showCookies = false" class="flex-1 md:flex-none faded-gradient-bg text-white px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
+                <button @click="showCookies = false" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
+                <button @click="currentView = 'cookie-policy'; showCookies = false; window.scrollTo({top:0, behavior:'smooth'})" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
             </div>
         </div>
     </div>
@@ -1680,8 +1804,10 @@
                 
                 <div class="space-y-8">
                     <div class="flex items-center group cursor-pointer" @click="scrollTo('hero')">
-                        <div class="relative w-11 h-11 overflow-hidden rounded-xl faded-gradient-bg flex items-center justify-center text-white mr-3 transition-all duration-500 group-hover:rotate-12">
-                            <span class="font-extrabold text-2xl">P</span>
+                        <div class="relative w-14 h-14 flex items-center justify-center mr-3 transition-all duration-500 group-hover:scale-110">
+                            <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769257914/3a227f44-ecee-473a-852e-0b9c9710f60b_etf4rs.png" 
+                                 alt="Posipher Logo" 
+                                 class="w-full h-full object-contain">
                         </div>
                         <div class="flex flex-col">
                             <span class="text-xl font-black tracking-tight text-pos-primary uppercase leading-none">Posipher</span>
@@ -1703,6 +1829,7 @@
                         <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Custom Software</a></li>
                         <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">Cloud-Native Ops</a></li>
                         <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">CRM/ERP Hub</a></li>
+                        <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">QA/IT Support</a></li>
                         <li><a @click="scrollTo('services')" class="text-sm font-bold text-gray-500 hover:text-pos-primary transition-colors cursor-pointer">SaaS Innovation</a></li>
                     </ul>
                 </div>
@@ -1737,11 +1864,12 @@
 
             <div class="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-gray-100 gap-8">
                 <div class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.4em] text-gray-400 text-center md:text-left">
-                    &copy; 2024 Posipher Solutions // Built for Impact.
+                    &copy; 2025 Posipher Solutions // Built for Impact.
                 </div>
                 <div class="flex justify-center md:justify-start space-x-8 sm:space-x-12 text-pos-primary text-[9px] sm:text-[10px] font-black uppercase tracking-widest">
                     <button @click="currentView = 'terms'; window.scrollTo({top:0, behavior:'smooth'})" class="hover:underline hover:text-pos-logo-dark transition-colors uppercase">Terms & Conditions</button>
                     <button @click="currentView = 'privacy'; window.scrollTo({top:0, behavior:'smooth'})" class="hover:underline hover:text-pos-logo-dark transition-colors uppercase">Privacy Policies</button>
+                    <button @click="currentView = 'cookie-policy'; window.scrollTo({top:0, behavior:'smooth'})" class="hover:underline hover:text-pos-logo-dark transition-colors uppercase">Cookie Policy</button>
                 </div>
             </div>
         </div>
