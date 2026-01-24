@@ -261,7 +261,7 @@
                 mobileMenu: false,
                 chatOpen: false, 
                 showSuggestions: true,
-                showCookies: true,
+                showCookies: localStorage.getItem('posipher_cookies_interacted') ? false : true,
                 isProcessing: false,
                 formSubmitted: false,
                 formData: { name: '', email: '', phone: '', service: '', message: '' },
@@ -907,7 +907,7 @@
                                         <i class="fa-solid fa-infinity text-xl sm:text-2xl"></i>
                                     </div>
                                     <div class="h-px w-8 xs:w-12 sm:w-16 bg-white/20"></div>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] xs:tracking-[0.4em] text-pos-sand/60">Destination</span>
+                                    <span class="text-[10px] font-black uppercase tracking-[0.4em] xs:tracking-[0.4em] text-pos-sand/60">Destination</span>
                                 </div>
                                 
                                 <div class="space-y-6">
@@ -1742,8 +1742,8 @@
                 </div>
             </div>
             <div class="flex items-center space-x-4 w-full md:w-auto">
-                <button @click="showCookies = false" class="flex-1 md:flex-none faded-gradient-bg text-white px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
-                <button @click="showCookies = false" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
+                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex-1 md:flex-none faded-gradient-bg text-white px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
+                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
                 <button @click="currentView = 'cookie-policy'; showCookies = false; window.scrollTo({top:0, behavior:'smooth'})" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
             </div>
         </div>
@@ -1756,7 +1756,7 @@
                 
                 <div class="space-y-8">
                     <div class="flex items-center group cursor-pointer" @click="scrollTo('hero')">
-                        <div class="relative w-16 h-16 flex items-center justify-center mr-3 transition-all duration-500 group-hover:scale-110">
+                        <div class="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mr-3 transition-all duration-500 group-hover:scale-110">
                             <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769257914/3a227f44-ecee-473a-852e-0b9c9710f60b_etf4rs.png" 
                                  alt="Posipher Logo" 
                                  class="w-full h-full object-contain">
