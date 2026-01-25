@@ -418,6 +418,37 @@
                             this.isMobile = window.innerWidth < 1024;
                         });
                         this.handleVerticalScroll();
+
+                        // --- Browser Back/Forward Logic Integration ---
+                        // Initialize history state on load
+                        history.replaceState({ view: this.currentView, category: this.selectedCategory }, '', '');
+
+                        // Listener for back/forward buttons
+                        window.addEventListener('popstate', (e) => {
+                            if (e.state) {
+                                this.currentView = e.state.view;
+                                this.selectedCategory = e.state.category;
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        });
+
+                        // Watchers to update history when state changes via UI interaction
+                        this.$watch('currentView', (val) => {
+                            const currentS = history.state;
+                            if (!currentS || currentS.view !== val || (val === 'detail' && JSON.stringify(currentS.category) !== JSON.stringify(this.selectedCategory))) {
+                                history.pushState({ view: val, category: this.selectedCategory }, '', '');
+                            }
+                        });
+
+                        this.$watch('selectedCategory', (val) => {
+                            if (this.currentView === 'detail') {
+                                const currentS = history.state;
+                                if (!currentS || JSON.stringify(currentS.category) !== JSON.stringify(val)) {
+                                    history.pushState({ view: 'detail', category: val }, '', '');
+                                }
+                            }
+                        });
+                        // ----------------------------------------------
                     });
                 },
 
