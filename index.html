@@ -419,36 +419,47 @@
                         });
                         this.handleVerticalScroll();
 
-                        // --- Browser Back/Forward Logic Integration ---
-                        // Initialize history state on load
-                        history.replaceState({ view: this.currentView, category: this.selectedCategory }, '', '');
+                        // --- Robust Browser Navigation Logic Implementation ---
+                        let isInternalStateUpdate = false;
+                        let pushStateDebounce;
 
-                        // Listener for back/forward buttons
-                        window.addEventListener('popstate', (e) => {
-                            if (e.state) {
-                                this.currentView = e.state.view;
-                                this.selectedCategory = e.state.category;
+                        // Function to push state to history with deep comparison to avoid redundant entries
+                        const syncHistory = () => {
+                            if (isInternalStateUpdate) return;
+                            
+                            clearTimeout(pushStateDebounce);
+                            pushStateDebounce = setTimeout(() => {
+                                const state = { view: this.currentView, category: this.selectedCategory ? JSON.parse(JSON.stringify(this.selectedCategory)) : null };
+                                const currentHistoryState = history.state;
+                                
+                                // Push only if the intended state is different from the current browser state
+                                if (!currentHistoryState || 
+                                    currentHistoryState.view !== state.view || 
+                                    JSON.stringify(currentHistoryState.category) !== JSON.stringify(state.category)) {
+                                    history.pushState(state, '', '');
+                                }
+                            }, 50); // Small debounce to catch multiple reactive updates
+                        };
+
+                        // Set initial root state
+                        history.replaceState({ view: 'home', category: null }, '', '');
+
+                        // Handle browser Back/Forward actions
+                        window.addEventListener('popstate', (event) => {
+                            if (event.state) {
+                                isInternalStateUpdate = true;
+                                this.currentView = event.state.view;
+                                this.selectedCategory = event.state.category;
+                                // Reset flag after Alpine finishes reactivity loop
+                                this.$nextTick(() => { isInternalStateUpdate = false; });
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }
                         });
 
-                        // Watchers to update history when state changes via UI interaction
-                        this.$watch('currentView', (val) => {
-                            const currentS = history.state;
-                            if (!currentS || currentS.view !== val || (val === 'detail' && JSON.stringify(currentS.category) !== JSON.stringify(this.selectedCategory))) {
-                                history.pushState({ view: val, category: this.selectedCategory }, '', '');
-                            }
-                        });
-
-                        this.$watch('selectedCategory', (val) => {
-                            if (this.currentView === 'detail') {
-                                const currentS = history.state;
-                                if (!currentS || JSON.stringify(currentS.category) !== JSON.stringify(val)) {
-                                    history.pushState({ view: 'detail', category: val }, '', '');
-                                }
-                            }
-                        });
-                        // ----------------------------------------------
+                        // Watchers to trigger history push on manual navigation
+                        this.$watch('currentView', () => syncHistory());
+                        this.$watch('selectedCategory', () => syncHistory());
+                        // --------------------------------------------------------
                     });
                 },
 
