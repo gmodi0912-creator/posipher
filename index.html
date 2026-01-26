@@ -426,7 +426,6 @@
                         let isInternalStateUpdate = false;
                         let pushStateDebounce;
 
-                        // Function to push state to history with deep comparison to avoid redundant entries
                         const syncHistory = () => {
                             if (isInternalStateUpdate) return;
                             
@@ -435,31 +434,26 @@
                                 const state = { view: this.currentView, category: this.selectedCategory ? JSON.parse(JSON.stringify(this.selectedCategory)) : null };
                                 const currentHistoryState = history.state;
                                 
-                                // Push only if the intended state is different from the current browser state
                                 if (!currentHistoryState || 
                                     currentHistoryState.view !== state.view || 
                                     JSON.stringify(currentHistoryState.category) !== JSON.stringify(state.category)) {
                                     history.pushState(state, '', '');
                                 }
-                            }, 50); // Small debounce to catch multiple reactive updates
+                            }, 50);
                         };
 
-                        // Set initial root state
                         history.replaceState({ view: 'home', category: null }, '', '');
 
-                        // Handle browser Back/Forward actions
                         window.addEventListener('popstate', (event) => {
                             if (event.state) {
                                 isInternalStateUpdate = true;
                                 this.currentView = event.state.view;
                                 this.selectedCategory = event.state.category;
-                                // Reset flag after Alpine finishes reactivity loop
                                 this.$nextTick(() => { isInternalStateUpdate = false; });
                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                             }
                         });
 
-                        // Watchers to trigger history push on manual navigation
                         this.$watch('currentView', () => syncHistory());
                         this.$watch('selectedCategory', () => syncHistory());
                         // --------------------------------------------------------
@@ -723,10 +717,8 @@
                     this.isProcessing = true;
                     const scriptURL = 'https://script.google.com/macros/s/AKfycbxx22xlWBYo7cYJnf1EobiKRufswsUD9f_VcrZ2rH9OkilYsv22ZwM-5OxA1_pCtBcm/exec';
                     
-                    // Capture current data
                     const payload = new URLSearchParams(this.formData);
 
-                    // Send data to Google Apps Script
                     fetch(scriptURL, { 
                         method: 'POST', 
                         mode: 'no-cors', 
@@ -1770,14 +1762,14 @@
         </div>
     </div>
 
-    <!-- Cookies Policy Banner -->
+    <!-- Cookies Policy Banner - Professional Responsive Fix -->
     <div x-show="showCookies" x-cloak 
          x-transition:enter="transition ease-out duration-700"
          x-transition:enter-start="opacity-0 translate-y-full"
          x-transition:enter-end="opacity-100 translate-y-0"
-         class="fixed bottom-0 left-0 w-full z-[200] glass border-t border-pos-beige/20 bg-white/95 backdrop-blur-2xl py-6 px-4 md:px-12 shadow-[0_-20px_60px_rgba(0,0,0,0.05)]">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
-            <div class="flex items-center space-x-6">
+         class="fixed bottom-0 left-0 w-full z-[200] glass border-t border-pos-beige/20 bg-white/95 backdrop-blur-2xl py-6 px-5 md:px-12 shadow-[0_-20px-60px_rgba(0,0,0,0.05)]">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
+            <div class="flex items-center space-x-6 w-full lg:w-auto">
                 <div class="w-12 h-12 rounded-2xl faded-gradient-bg flex items-center justify-center text-white text-xl shadow-lg shadow-pos-primary/20 flex-shrink-0">
                     <i class="fas fa-cookie-bite"></i>
                 </div>
@@ -1786,10 +1778,11 @@
                     <p class="text-[11px] font-medium text-gray-500 leading-relaxed max-w-2xl">We use essential cookies to maintain system integrity and optimize your digital engineering journey. By continuing to browse, you agree to our specialized data policies.</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-4 w-full md:w-auto">
-                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex-1 md:flex-none faded-gradient-bg text-white px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
-                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-8 py-3.5">Decline</button>
-                <button @click="currentView = 'cookie-policy'; showCookies = false; window.scrollTo({top:0, behavior:'smooth'})" class="flex-1 md:flex-none text-[10px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
+            <!-- Robust action grid to prevent button cropping on any mobile screen -->
+            <div class="grid grid-cols-2 sm:flex sm:items-center gap-3 sm:gap-4 w-full lg:w-auto">
+                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex items-center justify-center faded-gradient-bg text-white px-6 sm:px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
+                <button @click="showCookies = false; localStorage.setItem('posipher_cookies_interacted', 'true')" class="flex items-center justify-center text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-6 sm:px-8 py-3.5">Decline</button>
+                <button @click="currentView = 'cookie-policy'; showCookies = false; window.scrollTo({top:0, behavior:'smooth'})" class="col-span-2 sm:col-span-1 flex items-center justify-center text-[9px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
             </div>
         </div>
     </div>
