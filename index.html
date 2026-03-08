@@ -798,12 +798,6 @@
 
             <!-- Mobile Action Wrapper -->
             <div class="flex items-center space-x-4 lg:hidden">
-                <!-- Integrated Mobile Navbar Genverge Button -->
-                <div class="magnetic-wrap">
-                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center p-2 rounded-full border border-pos-primary/40 bg-transparent text-pos-primary shadow-lg shadow-pos-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group">
-                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-4 w-auto object-contain transition-transform group-hover:scale-110">
-                    </a>
-                </div>
                 <!-- Menu Toggle -->
                 <button @click="mobileMenu = !mobileMenu" class="text-pos-primary text-2xl active:scale-90 transition-transform p-2 focus:outline-none">
                     <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars-staggered'"></i>
@@ -828,22 +822,20 @@
             <button @click="scrollTo('services'); mobileMenu = false" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">What we Offer</button>
             <button @click="scrollTo('work'); mobileMenu = false" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Our Work</button>
             
+            <!-- Genverge Logo Link (Positioned below Our Work) - Increased size to h-12 -->
+            <a href="https://www.genverge.ai" target="_blank" class="w-fit transition-transform active:scale-95 block">
+                <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-12 w-auto object-contain">
+            </a>
+
             <button @click="currentView = 'terms'; mobileMenu = false; window.scrollTo({top:0, behavior:'smooth'})" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Terms & Conditions</button>
             <button @click="currentView = 'privacy'; mobileMenu = false; window.scrollTo({top:0, behavior:'smooth'})" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Privacy Policy</button>
             
-            <div class="pt-6 border-t border-gray-100 flex flex-col items-center space-y-6">
+            <div class="pt-6 border-t border-gray-100">
                 <!-- Inquire Now Button -->
                 <button @click="scrollTo('contact'); mobileMenu = false" class="w-full faded-gradient-bg text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg flex items-center justify-center space-x-3 active:scale-95 transition-all">
                     <span>Inquire Now</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
-                
-                <!-- Genverge Icon Button (Placed below Inquire Now) -->
-                <div class="magnetic-wrap">
-                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center p-4 rounded-full border border-pos-primary/40 bg-transparent text-pos-primary shadow-lg shadow-pos-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group">
-                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-6 w-auto object-contain transition-transform group-hover:scale-110">
-                    </a>
-                </div>
             </div>
         </div>
     </div>
