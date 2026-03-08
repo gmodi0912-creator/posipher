@@ -262,6 +262,7 @@
              Alpine.data('appState', () => ({
                 currentView: 'home',
                 mobileMenu: false,
+                chatHistory: [],
                 chatOpen: false, 
                 showSuggestions: true,
                 showCookies: localStorage.getItem('posipher_cookies_interacted') ? false : true,
@@ -269,28 +270,12 @@
                 formSubmitted: false,
                 formData: { name: '', email: '', isd: '+91', phone: '', service: '', message: '' },
                 selectedCategory: null,
-                chatHistory: [],
                 activeCategoryMobile: -1, 
                 activeServiceMobile: -1,  
                 isMobile: window.innerWidth < 1024,
                 ignoreNextHistoryUpdate: false,
                 isdCodes: [
-                    { country: 'India', code: '+91', length: 10 },
-                    { country: 'United States', code: '+1', length: 10 },
-                    { country: 'United Kingdom', code: '+44', length: 10 },
-                    { country: 'United Arab Emirates', code: '+971', length: 9 },
-                    { country: 'Singapore', code: '+65', length: 8 },
-                    { country: 'Australia', code: '+61', length: 9 },
-                    { country: 'Germany', code: '+49', length: 11 },
-                    { country: 'France', code: '+33', length: 9 },
-                    { country: 'Canada', code: '+1-CA', length: 10 }, 
-                    { country: 'Ireland', code: '+353', length: 9 },
-                    { country: 'Netherlands', code: '+31', length: 9 },
-                    { country: 'Saudi Arabia', code: '+966', length: 9 },
-                    { country: 'Qatar', code: '+974', length: 8 },
-                    { country: 'South Africa', code: '+27', length: 9 },
-                    { country: 'New Zealand', code: '+64', length: 9 },
-                    { country: 'Malaysia', code: '+60', length: 10 }
+                    {country: 'Afghanistan', code: '+93', length: 15}, {country: 'Albania', code: '+355', length: 15}, {country: 'Algeria', code: '+213', length: 15}, {country: 'Andorra', code: '+376', length: 15}, {country: 'Angola', code: '+244', length: 15}, {country: 'Antigua and Barbuda', code: '+1-268', length: 15}, {country: 'Argentina', code: '+54', length: 15}, {country: 'Armenia', code: '+374', length: 15}, {country: 'Australia', code: '+61', length: 15}, {country: 'Austria', code: '+43', length: 15}, {country: 'Azerbaijan', code: '+994', length: 15}, {country: 'Bahamas', code: '+1-242', length: 15}, {country: 'Bahrain', code: '+973', length: 15}, {country: 'Bangladesh', code: '+880', length: 15}, {country: 'Barbados', code: '+1-246', length: 15}, {country: 'Belarus', code: '+375', length: 15}, {country: 'Belgium', code: '+32', length: 15}, {country: 'Belize', code: '+501', length: 15}, {country: 'Benin', code: '+229', length: 15}, {country: 'Bhutan', code: '+975', length: 15}, {country: 'Bolivia', code: '+591', length: 15}, {country: 'Bosnia and Herzegovina', code: '+387', length: 15}, {country: 'Botswana', code: '+267', length: 15}, {country: 'Brazil', code: '+55', length: 15}, {country: 'Brunei', code: '+673', length: 15}, {country: 'Bulgaria', code: '+359', length: 15}, {country: 'Burkina Faso', code: '+226', length: 15}, {country: 'Burundi', code: '+257', length: 15}, {country: 'Cambodia', code: '+855', length: 15}, {country: 'Cameroon', code: '+237', length: 15}, {country: 'Canada', code: '+1', length: 15}, {country: 'Cape Verde', code: '+238', length: 15}, {country: 'Central African Republic', code: '+236', length: 15}, {country: 'Chad', code: '+235', length: 15}, {country: 'Chile', code: '+56', length: 15}, {country: 'China', code: '+86', length: 15}, {country: 'Colombia', code: '+57', length: 15}, {country: 'Comoros', code: '+269', length: 15}, {country: 'Congo (Republic)', code: '+242', length: 15}, {country: 'Congo (DRC)', code: '+243', length: 15}, {country: 'Costa Rica', code: '+506', length: 15}, {country: 'Croatia', code: '+385', length: 15}, {country: 'Cuba', code: '+53', length: 15}, {country: 'Cyprus', code: '+357', length: 15}, {country: 'Czech Republic', code: '+420', length: 15}, {country: 'Denmark', code: '+45', length: 15}, {country: 'Djibouti', code: '+253', length: 15}, {country: 'Dominica', code: '+1-767', length: 15}, {country: 'Dominican Republic', code: '+1-809', length: 15}, {country: 'Ecuador', code: '+593', length: 15}, {country: 'Egypt', code: '+20', length: 15}, {country: 'El Salvador', code: '+503', length: 15}, {country: 'Equatorial Guinea', code: '+240', length: 15}, {country: 'Eritrea', code: '+291', length: 15}, {country: 'Estonia', code: '+372', length: 15}, {country: 'Eswatini', code: '+268', length: 15}, {country: 'Ethiopia', code: '+251', length: 15}, {country: 'Fiji', code: '+679', length: 15}, {country: 'Finland', code: '+358', length: 15}, {country: 'France', code: '+33', length: 15}, {country: 'Gabon', code: '+241', length: 15}, {country: 'Gambia', code: '+220', length: 15}, {country: 'Georgia', code: '+995', length: 15}, {country: 'Germany', code: '+49', length: 15}, {country: 'Ghana', code: '+233', length: 15}, {country: 'Greece', code: '+30', length: 15}, {country: 'Grenada', code: '+1-473', length: 15}, {country: 'Guatemala', code: '+502', length: 15}, {country: 'Guinea', code: '+224', length: 15}, {country: 'Guinea-Bissau', code: '+245', length: 15}, {country: 'Guyana', code: '+592', length: 15}, {country: 'Haiti', code: '+509', length: 15}, {country: 'Honduras', code: '+504', length: 15}, {country: 'Hungary', code: '+36', length: 15}, {country: 'Iceland', code: '+354', length: 15}, {country: 'India', code: '+91', length: 10}, {country: 'Indonesia', code: '+62', length: 15}, {country: 'Iran', code: '+98', length: 15}, {country: 'Iraq', code: '+964', length: 15}, {country: 'Ireland', code: '+353', length: 15}, {country: 'Israel', code: '+972', length: 15}, {country: 'Italy', code: '+39', length: 15}, {country: 'Ivory Coast', code: '+225', length: 15}, {country: 'Jamaica', code: '+1-876', length: 15}, {country: 'Japan', code: '+81', length: 15}, {country: 'Jordan', code: '+962', length: 15}, {country: 'Kazakhstan', code: '+7', length: 15}, {country: 'Kenya', code: '+254', length: 15}, {country: 'Kiribati', code: '+686', length: 15}, {country: 'Kuwait', code: '+965', length: 15}, {country: 'Kyrgyzstan', code: '+996', length: 15}, {country: 'Laos', code: '+856', length: 15}, {country: 'Latvia', code: '+371', length: 15}, {country: 'Lebanon', code: '+961', length: 15}, {country: 'Lesotho', code: '+266', length: 15}, {country: 'Liberia', code: '+231', length: 15}, {country: 'Libya', code: '+218', length: 15}, {country: 'Liechtenstein', code: '+423', length: 15}, {country: 'Lithuania', code: '+370', length: 15}, {country: 'Luxembourg', code: '+352', length: 15}, {country: 'Madagascar', code: '+261', length: 15}, {country: 'Malawi', code: '+265', length: 15}, {country: 'Malaysia', code: '+60', length: 15}, {country: 'Maldives', code: '+960', length: 15}, {country: 'Mali', code: '+223', length: 15}, {country: 'Malta', code: '+356', length: 15}, {country: 'Marshall Islands', code: '+692', length: 15}, {country: 'Mauritania', code: '+222', length: 15}, {country: 'Mauritius', code: '+230', length: 15}, {country: 'Mexico', code: '+52', length: 15}, {country: 'Micronesia', code: '+691', length: 15}, {country: 'Moldova', code: '+373', length: 15}, {country: 'Monaco', code: '+377', length: 15}, {country: 'Mongolia', code: '+976', length: 15}, {country: 'Montenegro', code: '+382', length: 15}, {country: 'Morocco', code: '+212', length: 15}, {country: 'Mozambique', code: '+258', length: 15}, {country: 'Myanmar', code: '+95', length: 15}, {country: 'Namibia', code: '+264', length: 15}, {country: 'Nauru', code: '+674', length: 15}, {country: 'Nepal', code: '+977', length: 15}, {country: 'Netherlands', code: '+31', length: 15}, {country: 'New Zealand', code: '+64', length: 15}, {country: 'Nicaragua', code: '+505', length: 15}, {country: 'Niger', code: '+227', length: 15}, {country: 'Nigeria', code: '+234', length: 15}, {country: 'North Korea', code: '+850', length: 15}, {country: 'North Macedonia', code: '+389', length: 15}, {country: 'Norway', code: '+47', length: 15}, {country: 'Oman', code: '+968', length: 15}, {country: 'Pakistan', code: '+92', length: 15}, {country: 'Palau', code: '+680', length: 15}, {country: 'Panama', code: '+507', length: 15}, {country: 'Papua New Guinea', code: '+675', length: 15}, {country: 'Paraguay', code: '+595', length: 15}, {country: 'Peru', code: '+51', length: 15}, {country: 'Philippines', code: '+63', length: 15}, {country: 'Poland', code: '+48', length: 15}, {country: 'Portugal', code: '+351', length: 15}, {country: 'Qatar', code: '+974', length: 15}, {country: 'Romania', code: '+40', length: 15}, {country: 'Russia', code: '+7', length: 15}, {country: 'Rwanda', code: '+250', length: 15}, {country: 'Saint Kitts and Nevis', code: '+1-869', length: 15}, {country: 'Saint Lucia', code: '+1-758', length: 15}, {country: 'Saint Vincent and the Grenadines', code: '+1-784', length: 15}, {country: 'Samoa', code: '+685', length: 15}, {country: 'San Marino', code: '+378', length: 15}, {country: 'Sao Tome and Principe', code: '+239', length: 15}, {country: 'Saudi Arabia', code: '+966', length: 15}, {country: 'Senegal', code: '+221', length: 15}, {country: 'Serbia', code: '+381', length: 15}, {country: 'Seychelles', code: '+248', length: 15}, {country: 'Sierra Leone', code: '+232', length: 15}, {country: 'Singapore', code: '+65', length: 15}, {country: 'Slovakia', code: '+421', length: 15}, {country: 'Slovenia', code: '+386', length: 15}, {country: 'Solomon Islands', code: '+677', length: 15}, {country: 'Somalia', code: '+252', length: 15}, {country: 'South Africa', code: '+27', length: 15}, {country: 'South Korea', code: '+82', length: 15}, {country: 'South Sudan', code: '+211', length: 15}, {country: 'Spain', code: '+34', length: 15}, {country: 'Sri Lanka', code: '+94', length: 15}, {country: 'Sudan', code: '+249', length: 15}, {country: 'Suriname', code: '+597', length: 15}, {country: 'Sweden', code: '+46', length: 15}, {country: 'Switzerland', code: '+41', length: 15}, {country: 'Syria', code: '+963', length: 15}, {country: 'Taiwan', code: '+886', length: 15}, {country: 'Tajikistan', code: '+992', length: 15}, {country: 'Tanzania', code: '+255', length: 15}, {country: 'Thailand', code: '+66', length: 15}, {country: 'Timor-Leste', code: '+670', length: 15}, {country: 'Togo', code: '+228', length: 15}, {country: 'Tonga', code: '+676', length: 15}, {country: 'Trinidad and Tobago', code: '+1-868', length: 15}, {country: 'Tunisia', code: '+216', length: 15}, {country: 'Turkey', code: '+90', length: 15}, {country: 'Turkmenistan', code: '+993', length: 15}, {country: 'Tuvalu', code: '+688', length: 15}, {country: 'Uganda', code: '+256', length: 15}, {country: 'Ukraine', code: '+380', length: 15}, {country: 'United Arab Emirates', code: '+971', length: 15}, {country: 'United Kingdom', code: '+44', length: 15}, {country: 'United States', code: '+1', length: 10}, {country: 'Uruguay', code: '+598', length: 15}, {country: 'Uzbekistan', code: '+998', length: 15}, {country: 'Vanuatu', code: '+678', length: 15}, {country: 'Vatican City', code: '+39-06', length: 15}, {country: 'Venezuela', code: '+58', length: 15}, {country: 'Vietnam', code: '+84', length: 15}, {country: 'Yemen', code: '+967', length: 15}, {country: 'Zambia', code: '+260', length: 15}, {country: 'Zimbabwe', code: '+263', length: 15}
                 ],
                 get selectedISD() {
                     return this.isdCodes.find(i => i.code === this.formData.isd) || { length: 15 };
@@ -741,7 +726,7 @@
 
                 submitForm() {
                     this.isProcessing = true;
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbwecdDeCtvpYpeQmR44E4zDfoLbEqF5rZUDLl1CvxK2AvEJrMRfEa1O_NWZYEx6Rvfj/exec';
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxx22xlWBYo7cYJnf1EobiKRufswsUD9f_VcrZ2rH9OkilYsv22ZwM-5OxA1_pCtBcm/exec';
                     
                     const finalPhone = `${this.formData.isd.split('-')[0]} ${this.formData.phone}`;
                     const payload = new URLSearchParams({
@@ -790,12 +775,20 @@
                 </div>
             </div>
 
-            <div class="hidden lg:flex items-center space-x-12">
+            <!-- Navigation Links -->
+            <div class="hidden lg:flex items-center space-x-10">
                 <button @click="scrollTo('hero')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">Home</button>
                 <button @click="scrollTo('about')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">About us</button>
                 <button @click="scrollTo('services')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">What we Offer</button>
                 <button @click="scrollTo('work')" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">Our Work</button>
-                <button @click="currentView = 'privacy'; window.scrollTo({top:0, behavior:'smooth'})" class="text-[10px] font-black uppercase tracking-widest hover:text-pos-primary transition-colors duration-300">Privacy Policy</button>
+                
+                <!-- Desktop Genverge AI Button -->
+                <div class="magnetic-wrap">
+                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center p-3 rounded-full border border-pos-primary/40 bg-transparent text-pos-primary shadow-lg shadow-pos-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group">
+                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-5 w-auto object-contain transition-transform group-hover:scale-110">
+                    </a>
+                </div>
+
                 <div class="magnetic-wrap">
                     <button @click="scrollTo('contact')" class="faded-gradient-bg text-white px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/30 hover:scale-105 active:scale-95 transition-all duration-300">
                         Inquire Now
@@ -803,9 +796,19 @@
                 </div>
             </div>
 
-            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-pos-primary text-2xl active:scale-90 transition-transform p-2 focus:outline-none">
-                <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars-staggered'"></i>
-            </button>
+            <!-- Mobile Action Wrapper -->
+            <div class="flex items-center space-x-4 lg:hidden">
+                <!-- Integrated Mobile Navbar Genverge Button -->
+                <div class="magnetic-wrap">
+                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center p-2 rounded-full border border-pos-primary/40 bg-transparent text-pos-primary shadow-lg shadow-pos-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group">
+                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-4 w-auto object-contain transition-transform group-hover:scale-110">
+                    </a>
+                </div>
+                <!-- Menu Toggle -->
+                <button @click="mobileMenu = !mobileMenu" class="text-pos-primary text-2xl active:scale-90 transition-transform p-2 focus:outline-none">
+                    <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars-staggered'"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -824,14 +827,23 @@
             <button @click="scrollTo('about'); mobileMenu = false" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">About us</button>
             <button @click="scrollTo('services'); mobileMenu = false" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">What we Offer</button>
             <button @click="scrollTo('work'); mobileMenu = false" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Our Work</button>
+            
             <button @click="currentView = 'terms'; mobileMenu = false; window.scrollTo({top:0, behavior:'smooth'})" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Terms & Conditions</button>
             <button @click="currentView = 'privacy'; mobileMenu = false; window.scrollTo({top:0, behavior:'smooth'})" class="text-left text-xl font-black text-pos-logo-dark hover:text-pos-primary transition-colors uppercase tracking-tight">Privacy Policy</button>
             
-            <div class="pt-6 border-t border-gray-100">
+            <div class="pt-6 border-t border-gray-100 flex flex-col items-center space-y-6">
+                <!-- Inquire Now Button -->
                 <button @click="scrollTo('contact'); mobileMenu = false" class="w-full faded-gradient-bg text-white py-4 rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg flex items-center justify-center space-x-3 active:scale-95 transition-all">
                     <span>Inquire Now</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
+                
+                <!-- Genverge Icon Button (Placed below Inquire Now) -->
+                <div class="magnetic-wrap">
+                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center p-4 rounded-full border border-pos-primary/40 bg-transparent text-pos-primary shadow-lg shadow-pos-primary/10 hover:scale-105 active:scale-95 transition-all duration-300 group">
+                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="h-6 w-auto object-contain transition-transform group-hover:scale-110">
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -846,7 +858,6 @@
                 <canvas id="neural-canvas" class="neural-bg opacity-100"></canvas>
                 
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-20 text-center">
-                    <!-- Added active class to ensure reveal triggers -->
                     <div id="hero-content" class="scroll-reveal active space-y-8 sm:space-y-10">
                         <div class="section-tag bg-pos-primary/5 border border-pos-primary/10 px-4 sm:px-6 py-2 rounded-full animate-pulse-slow inline-flex">
                             <span class="w-2 h-2 rounded-full bg-pos-primary mr-3"></span>
@@ -1026,6 +1037,43 @@
                             </div>
                         </template>
                     </div>
+
+                    <!-- Updated Premium Genverge AI CTA Bar with faded-gradient-bg button theme -->
+                    <div class="mt-16 sm:mt-24 scroll-reveal">
+                        <div class="relative group overflow-hidden p-10 sm:p-14 rounded-[3.5rem] bg-white border border-pos-primary/5 shadow-[0_32px_64px_-16px_rgba(93,58,26,0.15)] flex flex-col md:flex-row items-center justify-between gap-12 transition-all duration-700 hover:shadow-[0_48px_80px_-24px_rgba(93,58,26,0.15)] hover:border-pos-primary/20">
+                            <!-- Premium Animated Gradient Background -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-pos-sand/5 via-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                            <div class="absolute -right-20 -top-20 w-64 h-64 bg-pos-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:scale-150 transition-transform duration-1000"></div>
+                            
+                            <div class="flex items-center space-x-8 relative z-10 text-center md:text-left flex-col md:flex-row max-w-3xl">
+                                <div class="relative flex-shrink-0 mb-6 md:mb-0">
+                                    <div class="absolute -inset-4 bg-pos-primary/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white border border-pos-beige/10 flex items-center justify-center shadow-lg relative group-hover:scale-105 transition-transform duration-500 overflow-hidden p-4">
+                                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769371246/GenVerge_1_zoczbv.png" alt="Genverge Logo" class="w-full h-full object-contain">
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-center md:justify-start space-x-3">
+                                        <span class="h-px w-8 bg-pos-primary/40"></span>
+                                        <span class="text-[10px] font-black uppercase tracking-[0.4em] text-pos-primary">Cognitive Expansion</span>
+                                    </div>
+                                    <h4 class="text-2xl sm:text-3xl lg:text-4xl font-black text-pos-logo-dark leading-tight tracking-tighter uppercase">
+                                        Architecting Intelligence with <br class="hidden lg:block"> <span class="text-pos-primary italic">Genverge AI</span>
+                                    </h4>
+                                    <p class="text-base font-medium text-gray-500 max-w-lg leading-relaxedop-7">Discover our specialized AI ecosystem designed for enterprise cognitive automation and next-gen LLM integration.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative z-10 w-full md:w-auto">
+                                <div class="magnetic-wrap w-full md:w-auto">
+                                    <a href="https://www.genverge.ai" target="_blank" class="flex items-center justify-center space-x-4 px-12 py-6 rounded-2xl faded-gradient-bg text-white text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-pos-primary/30 hover:scale-105 transition-all duration-500 active:scale-95 group overflow-hidden relative">
+                                        <span class="relative z-10">Explore Genverge.ai</span>
+                                        <i class="fas fa-arrow-right relative z-10 group-hover:translate-x-2 transition-transform duration-300"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1104,7 +1152,7 @@
                         </div>
 
                         <div class="absolute top-6 sm:top-8 right-8 sm:right-12 flex space-x-2">
-                            <template x-for="pIdx in [0]" :key="pIdx">
+                            <template x-for="pIdx in [0]" :key="'pIdx-'+pIdx">
                                 <div class="h-1 rounded-full transition-all duration-500" 
                                     :class="workIndex === pIdx ? 'w-6 sm:w-8 bg-white' : 'w-1.5 sm:w-2 bg-white/20'"></div>
                             </template>
@@ -1145,9 +1193,11 @@
                                             <input type="email" x-model="formData.email" placeholder="Email Address" required class="w-full border-b border-gray-100 py-2 focus:border-pos-logo-dark outline-none font-bold text-lg bg-transparent transition-all duration-500 placeholder:text-gray-200">
                                         </div>
                                         
+                                        <!-- ISD Code & Phone Number with full country support -->
                                         <div class="space-y-2 group">
                                             <label class="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-focus-within:text-pos-primary transition-colors">Contact Number</label>
                                             <div class="flex items-center space-x-4">
+                                                <!-- Custom ISD Dropdown -->
                                                 <div class="w-24 flex-shrink-0 relative" x-data="{ open: false }">
                                                     <button @click="open = !open" type="button" class="w-full border-b border-gray-100 py-2 focus:border-pos-logo-dark outline-none font-bold text-lg bg-transparent transition-all duration-500 flex justify-between items-center text-left">
                                                         <span x-text="formData.isd.split('-')[0]"></span>
@@ -1805,7 +1855,7 @@
         </div>
     </div>
 
-    <!-- Professional Integrated Footer -->
+    <!-- Integrated Footer -->
     <footer class="bg-white py-12 sm:py-24 border-t border-pos-beige/20 relative z-10 overflow-x-hidden">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 sm:gap-16 mb-16 sm:mb-24">
