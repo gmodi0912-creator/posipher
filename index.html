@@ -747,7 +747,7 @@
 
                 submitForm() {
                     this.isProcessing = true;
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbzrlw1VOma_o2FKcQoG6yz77jJXdIBKQiQycYh06jA9KkviKusS97zJLdzJoLCt_Lr4FQ/exec';
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxx22xlWBYo7cYJnf1EobiKRufswsUD9f_VcrZ2rH9OkilYsv22ZwM-5OxA1_pCtBcm/exec';
                     
                     const finalPhone = `${this.formData.isd.split('-')[0]} ${this.formData.phone}`;
                     const payload = new URLSearchParams({
@@ -1873,7 +1873,7 @@
             <div class="grid grid-cols-2 sm:flex sm:items-center gap-3 sm:gap-4 w-full lg:w-auto">
                 <button @click="acceptCookies()" class="flex items-center justify-center faded-gradient-bg text-white px-6 sm:px-10 py-3.5 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-xl shadow-pos-primary/20 active:scale-95 transition-all">Accept All</button>
                 <button @click="declineCookies()" class="flex items-center justify-center text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-pos-primary transition-colors border border-gray-100 rounded-xl px-6 sm:px-8 py-3.5">Decline</button>
-                <button @click="currentView = 'privacy'; showCookies = false; window.scrollTo({top:0, behavior:'smooth'})" class="col-span-2 sm:col-span-1 flex items-center justify-center text-[9px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
+                <button @click="currentView = 'cookie-policy'; window.scrollTo({top:0, behavior:'smooth'})" class="col-span-2 sm:col-span-1 flex items-center justify-center text-[9px] font-black uppercase tracking-widest text-pos-primary hover:text-pos-logo-dark transition-colors border border-pos-primary/20 bg-pos-primary/5 rounded-xl px-6 py-3.5">More Info</button>
             </div>
         </div>
     </div>
